@@ -1,91 +1,77 @@
-# Introduction
+# 소개
 
-This repo contains technical knowledge about mozilla hubs.
- 
-Let's help each other.
+이 리포지토리에는 mozilla 허브에 대한 기술 지식이 포함되어 있습니다.
+서로 도와줍시다.
 
-If you have advice or experience sharing about:
-- Best practice
-- Server hosting
-- Server resource usages
-- Tips
+# 로컬로 Mozilla Hub 설치
 
-Please send me pull request or send me a message.
+이 문서는 albirrkarim/mozilla-hubs-installation-detailed 를 기반으로 제작되었습니다.
+해당문서의 튜토리얼 영상 [youtube video](https://youtu.be/KH1T9u9DaCo). 
+단, 튜토리얼 영상은 맥북으로 작성되어 MacOS 기반입니다. 그래서 이 문서와는 조금 차이가 있습니다. 주의하세요.
 
+이것은 로컬에서 Mozilla 허브를 실행하는 것에 관한 것입니다. 이것은 내가 하는 일을 단계별로 자세히 설명한 버전입니다.
+기억하다! 1시간 동안 해결할 수 없는 npm 또는 종속성에 문제가 있는 경우. PC를 다시 시작하면 됩니다. 날 믿어.
 
-
-Give me a star on this repository or give a donation with this button below for supporting me to always update this.
-
-# Installing Mozilla Hubs Locally
-
-My journey installing Mozilla hubs, I'm new to a project like this. so I'm confused. After 4 days of figuring out how this program work finally I can run Mozilla hubs on my MacBook air m1.
-I want to share with you how to do it.
-
-For make it clear i provide this tutorial in [youtube video](https://youtu.be/KH1T9u9DaCo). give me like and subscribe to supporting me making the other video about this.
-
-This is about running Mozilla hubs locally. this is a detailed version, step by step what I do.
-
-Remember! if you got a problem with npm or dependency that you cant to solve for 1 hour. Just restart your PC. Trust me.
-
-I have done [Hosting Mozilla Hubs on VPS](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/VPS_FOR_HUBS.md)
+VPS 에서 Hubs를 설치하는 방법은 다음문서를 참고해주세요. [Hosting Mozilla Hubs on VPS](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/VPS_FOR_HUBS.md)
 
 <br>
 <br>
 
-## Disclaimer - this tutorial maybe isn't a best practice
+면책 조항 - 이 튜토리얼은 모범 사례가 아닐 수 있습니다.
 
 <br>
 <br>
 
-# Requirement:
+# 요구사항:
 
 ### Hardware:
 
-- at least 8GB of RAM
-- recommended using fast CPU
+- 최소 8GB RAM
+- 빠른 CPU 사용 권장
+- 우분투 20
 
-### Software
+### 소프트웨어
 
-- Node js installed. when I install this hubs I use v16
+- 노드 js가 설치되었습니다. 허브를 설치할 때 버전은 v16을 사용합니다.
 
-### Knowledge
+### 지식
 
-I assume you already know, if no you must up-skill first
+나는 당신이 이미 알고 있다고 가정합니다. 그렇지 않다면 먼저 기술을 향상시켜야 합니다.
 
 ![Up skill](/docs_img/excercise.gif)
 
 - Javascript
 - React js
-- Basic Webpack dev server
-- Basic Elixir and phoenix
-- Basic Web Socket
+- Webpack dev server
+- Elixir and phoenix
+- Web Socket
 
-# Overview
+# 개요
 
-![System Overview](/docs_img/System_Overview.png)
+![시스템 오버뷰](/docs_img/System_Overview.png)
 
-The image above made with [figma](https://www.figma.com/) you can read more description on [documentation](https://hubs.mozilla.com/docs/system-overview.html)
+[figma](https://www.figma.com/) 로 만든 위의 이미지 는 [문서](https://hubs.mozilla.com/docs/system-overview.html) 에서 더 많은 설명을 읽을 수 있습니다
 
-I also try to make software overview, architecture, and tables on the database. you can see my [figma project](https://www.figma.com/file/h92Je1ac9AtgrR5OHVv9DZ/Overview-Mozilla-Hubs-Project?node-id=0%3A1)
+또한 데이터베이스에 대한 소프트웨어 개요, 아키텍처 및 테이블을 만들려고 합니다. 내 [figma 프로젝트](https://www.figma.com/file/h92Je1ac9AtgrR5OHVv9DZ/Overview-Mozilla-Hubs-Project?node-id=0%3A1) 를 볼 수 있습니다
 
-### Summary
+### 요약
 
-Reticulum is the main host. it sync position, rotation, state of object. Comunicates with client browser through http request and websocket.
+Reticulum - 주요 호스트입니다. 그것은 위치, 회전, 개체의 상태를 동기화합니다. http 요청 및 websocket을 통해 클라이언트 브라우저와 통신합니다.
 
-Dialog sync video and audio user. comunicates with clients browser through websocket.
+Dialog - 동기화 비디오 및 오디오 사용자. 웹 소켓을 통해 클라이언트 브라우저와 통신합니다.
 
-Hubs, Spoke serve static assets then reticulum takes it and forward to client browser.
+Hubs, Spoke - 정적 자산을 제공한 다음 레티큘럼이 이를 가져와 클라이언트 브라우저로 전달합니다.
 
-postREST is a server that help hubs Admin to doing basic task like CRUD (create read update delete)
+postREST - 허브 관리자가 CRUD(읽기 업데이트 삭제 생성)와 같은 기본 작업을 수행하는 데 도움이 되는 서버입니다.
 
-Hubs Admin use websocket to comunicates with postgREST for authentication (login). for CRUD purpose hubs admin send http request (GET, POST, etc) to reticulum then reticulum doing proxy pass to postgREST.
+Hubs Admin - websocket을 사용하여 인증(로그인)을 위해 postgREST와 통신합니다. CRUD 목적의 허브 관리자는 http 요청(GET, POST 등)을 레티큘럼에 보낸 다음 프록시를 postgREST에 전달하는 레티큘럼을 보냅니다.
 
 <br/>
 <br/>
 
-# Attention!
+# 주목!
 
-There is major step [Cloning and Preparation](#1-cloning-and-preparation) -> [Setting up HOST](#2-setting-up-host) -> [Setting up HTTPS (SSL)](#3-setting-up-https-ssl) -> [Running](#4-runing)
+주요 단계 - [Cloning and Preparation](#1-cloning-and-preparation) -> [Setting up HOST](#2-setting-up-host) -> [Setting up HTTPS (SSL)](#3-setting-up-https-ssl) -> [Running](#4-runing)
 
 # 1. Cloning and preparation
 
