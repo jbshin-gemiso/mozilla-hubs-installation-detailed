@@ -210,15 +210,18 @@ yarn install
 ### 1.3.2 기본 경로 설정
 
 I hope you know the basic `react-router-dom` with the default URL in  slash `/` on `localhost:9090`
+
 `localhost:9090`의 슬래시 `/`에 기본 URL이 있는 기본 `react-router-dom`을 알고 있기를 바랍니다.
 
 But in the end, we will access the spoke on `localhost:4000/spoke`
+
 그러나 결국 `localhost:4000/spoke`의 스포크에 액세스합니다.
 
 So we must set the base URL to `/spoke`
 따라서 기본 URL을 `/spoke`로 설정해야 합니다.
 
 Add the `ROUTER_BASE_PATH=/spoke` params to the `start` command on `package.json`
+
 `package.json`의 `start` 명령에 `ROUTER_BASE_PATH=/spoke` 매개변수를 추가합니다.
 
 
@@ -245,6 +248,7 @@ npm ci
 ## 1.5 Hubs Admin
 
 from the [hubs repo](#14-hubs) you can move to `hubs/admin` then run
+
 [hubs repo](#14-hubs)에서 `hubs/admin`으로 이동한 다음 실행할 수 있습니다.
 
 ```
@@ -254,15 +258,16 @@ npm install
 # 2. 호스트 설정
 
 We are not using `hubs.local` domain. we use `localhost`
+
 우리는 `hub.local` 도메인을 사용하지 않습니다. 우리는 `localhost`를 사용합니다
 
 so change every host configuration on reticulum, dialog, hubs, hubs admin, spoke.
+
 따라서 레티큘럼, 대화 상자, 허브, 허브 관리, 스포크의 모든 호스트 구성을 변경해야합니다.
 
 # 3. HTTPS(SSL) 설정
 
-All the servers must serve with HTTPS. you must generate a certificate and key file
-모든 서버는 HTTPS와 함께 제공되어야 합니다. 인증서와 키 파일을 생성해야 합니다.
+모든 서버는 HTTPS와 함께 제공되어야 합니다. 때문에 인증서와 키 파일을 반드시 생성해야 합니다.
 
 ## 3.1 인증서 생성 및 신뢰 만들기
 
@@ -274,20 +279,42 @@ reticulum 디렉토리에서 터미널 열기
 mix phx.gen.cert
 ```
 
+
 It will generate key `selfsigned_key.pem` and certificate `selfsigned.pem` in the `priv/cert` folder
+
 `priv/cert` 폴더에 `self signed key.pem` 키와 인증서 `self signed.pem`을 생성합니다.
 
-Rename `selfsigned_key.pem` to `key.pem`
 `selfsigned_key.pem`의 이름을 `key.pem`으로 바꿉니다.
 
-Rename `selfsigned.pem` to `cert.crt`
 `selfsigned.pem`의 이름을 `cert.pem`으로 바꿉니다.
-단, MacOS는 'cert.crt' 이 아닌 'cert.pem' 로 바꾸어야 합니다.
 
-#### Now we have `key.pem` and `cert.crt` file
-#### 이제 `key.pem` 및 `cert.crt` 파일이 있습니다.
+<br>
 
-cert.crt 는 리눅스에서 특정 폴더로 복사한 뒤, 명령어를 입력하여 인증서를 허가합니다.
+#### 이제 `key.pem` 및 `cert.pem` 파일이 있습니다.
+
+
+먼저 인증서를 리눅스에 신뢰할수 있는 Root 인증서로 추가합니다. Ubuntu 리눅스를 기준으로 작성되었습니다.
+<br>
+
+cert.pem 인증서의 경우, cert.crt 인증서로 변경한다.
+
+```bash
+openssl x509 -in cert.pem -inform pem -out cert.crt
+```
+
+cert.crt 파일을 아래 디렉토리로 복사한다. (디렉토리가 없으면 생성)
+
+```bash
+cp cert.crt /usr/share/ca-certificates/extra
+```
+Ubuntu가 인증서를 신뢰할 수 있는 것으로 추가하도록 한다.
+
+```bash
+dpkg-reconfigure ca-certificates
+```
+
+이제 cert.pem(cert.crt) 인증서가 신뢰할 수 있는 인증서로 리눅스에 추가되었습니다.
+
 
 윈도우에도 동일한 작업을 해주면 윈도우에서 브라우저 접속시 경고메시지가 안뜨게 됩니다.
 
@@ -313,6 +340,7 @@ Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/certs`
 'hubs/certs' 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
 우리는 `npm run local`로 허브를 실행합니다.
+
 그래서 `package.json`에 추가 매개변수를 추가해야합니다.
 
 `--https --cert certs/cert.crt --key certs/key.pem`
@@ -328,6 +356,7 @@ Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/admin/certs`
 `hubs/admin/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
 우리는 `npm run local`로 허브(Admin)를 실행합니다.
+
 그래서 `package.json`에 추가 매개변수를 추가하십시오.
 
 `--https --cert certs/cert.crt --key certs/key.pem`
@@ -342,9 +371,9 @@ Paste [that](#now-we-have-keypem-and-certpem-file) file into `spoke/certs`
 
 `spoke/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
-We run spoke with `yarn start` right?
-우리는 'yarn start'로 스포크 실행합니다.
-So change the `start` command
+
+'yarn start'로 스포크 실행합니다.
+
 따라서 `start` 명령을 변경하십시오.
 
 ![ssl hubs admin](/docs_img/ssl_spoke.png)
