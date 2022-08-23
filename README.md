@@ -17,14 +17,14 @@ VPS 에서 Hubs를 설치하는 방법은 다음문서를 참고해주세요. [H
 <br>
 <br>
 
-면책 조항 - 이 튜토리얼은 모범 사례가 아닐 수 있습니다.
+면책 조항 - 주의 !! 이 튜토리얼은 모범 사례가 아닐 수 있습니다 !!
 
 <br>
 <br>
 
 # 요구사항:
 
-### Hardware:
+### 하드웨어:
 
 - 최소 8GB RAM
 - 빠른 CPU 사용 권장
@@ -32,11 +32,11 @@ VPS 에서 Hubs를 설치하는 방법은 다음문서를 참고해주세요. [H
 
 ### 소프트웨어
 
-- 노드 js가 설치되었습니다. 허브를 설치할 때 버전은 v16을 사용합니다.
+- node.js가 설치되었습니다. 허브를 설치할 때 버전은 v16을 사용합니다.
 
 ### 지식
 
-나는 당신이 이미 알고 있다고 가정합니다. 그렇지 않다면 먼저 기술을 향상시켜야 합니다.
+아래의 사항들에 대하여 이미 알고 있다고 가정합니다. 그렇지 않다면 먼저 기술을 향상시켜야 합니다.
 
 ![Up skill](/docs_img/excercise.gif)
 
@@ -145,7 +145,7 @@ dev_janus_host = "localhost"
 config :ret, Ret.JanusLoadStatus, default_janus_host: dev_janus_host, janus_port: 4443
 ```
 
-3. `add_csp.ex`의 CSP 규칙에 Dialog 메타 엔드포인트를 추가합니다:
+3. `add_csp.ex`의 CSP 규칙에 ialog 메타 엔드포인트를 추가합니다:
 
 ```elixir
 default_janus_csp_rule =
@@ -196,6 +196,7 @@ config :ret, Ret.PermsToken, perms_key: "-----BEGIN RSA PRIVATE KEY----- paste h
 ## 1.3 Spoke
 
 여기에서 장면/건물을 무엇이라고 부르든 생성/편집할 수 있습니다.
+Hubs 의 편집기 입니다. 씬을 생성하고 편집/배포할 수 있습니다.
 
 ### 1.3.1 복제
 
@@ -247,8 +248,6 @@ npm ci
 
 ## 1.5 Hubs Admin
 
-from the [hubs repo](#14-hubs) you can move to `hubs/admin` then run
-
 [hubs repo](#14-hubs)에서 `hubs/admin`으로 이동한 다음 실행할 수 있습니다.
 
 ```
@@ -257,13 +256,13 @@ npm install
 
 # 2. 호스트 설정
 
-We are not using `hubs.local` domain. we use `localhost`
-
 우리는 `hub.local` 도메인을 사용하지 않습니다. 우리는 `localhost`를 사용합니다
 
-so change every host configuration on reticulum, dialog, hubs, hubs admin, spoke.
+따라서 reticulum, dialog, hubs, hubs admin, spoke의 모든 호스트 구성을 변경(hubs.local -> localhost)해야합니다.
 
-따라서 레티큘럼, 대화 상자, 허브, 허브 관리, 스포크의 모든 호스트 구성을 변경해야합니다.
+튜토리얼 동영상을 참조하세요. 
+
+** 변경에 대한 내용 보강 필요 **
 
 # 3. HTTPS(SSL) 설정
 
@@ -271,9 +270,9 @@ so change every host configuration on reticulum, dialog, hubs, hubs admin, spoke
 
 ## 3.1 인증서 생성 및 신뢰 만들기
 
-reticulum 디렉토리에서 터미널 열기
+reticulum 디렉토리에서 터미널 열고,
 
-명령을 실행
+다음 명령을 실행하여 인증서와 키 파일을 생성합니다.
 
 ```bash
 mix phx.gen.cert
@@ -404,7 +403,7 @@ key.pem`을 `privkey.pem`으로 이름을 바꿉니다.
 
 Open five terminals. for each reticulum, dialog, spoke, hubs, hubs admin.
 
-5개의 터미널을 엽니다. 각 reticulum, dialog, spoke, hubs, hubs admin 에 대해.
+5개의 터미널을 엽니다. 각각 reticulum, dialog, spoke, hubs, hubs admin 의 실행을 위해서.. 
 
 ![Running preparation](/docs_img/ss.png)
 
@@ -436,8 +435,6 @@ For giving params `MEDIASOUP_LISTEN_IP` and `MEDIASOUP_ANNOUNCED_IP`
 npm run start
 ```
 
-`127.0.0.1` is the default IP of localhost on Mac / Linux you can look at the IP with this command:
-
 `127.0.0.1`은 Mac/Linux에서 localhost의 기본 IP입니다. 다음 명령으로 IP를 볼 수 있습니다:
 
 ```bash
@@ -454,7 +451,6 @@ yarn start
 
 ## 4.4 hubs 와 hubs admin 실행.
 
-Each with command
 
 둘 다 다음 명령어로 실행
 
@@ -476,7 +472,7 @@ tar -xf postgrest-v9.0.0-linux-static-x64.tar.xz
 
 reticulum iex 상에서
 
-다음을 붙여넣기 합니다.
+다음 명령어를 붙여넣기 한 후 실행 합니다.
 ```
 jwk = Application.get_env(:ret, Ret.PermsToken)[:perms_key] |> JOSE.JWK.from_pem(); JOSE.JWK.to_file("reticulum-jwk.json", jwk)
 ```
@@ -494,7 +490,7 @@ nano reticulum.conf
 ```
 and paste 
 
-그리고 붙여넣기.. 합니다.
+그리고 만들어진 파일에 아래의 내용을 붙여넣기 합니다.
 
 ```
 # reticulum.conf
