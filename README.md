@@ -288,6 +288,7 @@ Rename `selfsigned.pem` to `cert.crt`
 #### 이제 `key.pem` 및 `cert.crt` 파일이 있습니다.
 
 cert.crt 는 리눅스에서 특정 폴더로 복사한 뒤, 명령어를 입력하여 인증서를 허가합니다.
+
 윈도우에도 동일한 작업을 해주면 윈도우에서 브라우저 접속시 경고메시지가 안뜨게 됩니다.
 
 
@@ -323,6 +324,7 @@ Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/certs`
 ## 3.4 허브 관리자용 HTTPS 설정
 
 Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/admin/certs`
+
 `hubs/admin/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
 우리는 `npm run local`로 허브(Admin)를 실행합니다.
@@ -337,6 +339,7 @@ Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/admin/certs`
 ## 3.5 스포크용 HTTPS 설정
 
 Paste [that](#now-we-have-keypem-and-certpem-file) file into `spoke/certs`
+
 `spoke/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
 We run spoke with `yarn start` right?
@@ -354,12 +357,12 @@ cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://
 
 간단한 설명::
 
-BASE_ASSETS_PATH = basicaly we run the spoke on localhost:9090
 BASE_ASSETS_PATH = 기본적으로 localhost:9090에서 스포크를 실행합니다.
 
 ## 3.6 Dialog에 대한 https 설정
 
 Paste [that](#now-we-have-keypem-and-certpem-file) file into `dialog/certs`
+
 `dialog/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
 cert.crt`을 `fullchain.pem`으로 이름을 바꿉니다.
@@ -371,21 +374,22 @@ key.pem`을 `privkey.pem`으로 이름을 바꿉니다.
 # 4. 실행
 
 Open five terminals. for each reticulum, dialog, spoke, hubs, hubs admin.
+
 5개의 터미널을 엽니다. 각 reticulum, dialog, spoke, hubs, hubs admin 에 대해.
 
 ![Running preparation](/docs_img/ss.png)
 
-## 4.1 Run reticulum
+## 4.1 reticulum 실행
 
-with command
+다음 커맨드 입력
 
 ```bash
 iex -S mix phx.server
 ```
 
-## 4.2 Run dialog
+## 4.2 dialog 실행
 
-Edit the `start` command on the package.json with 
+다음을 사용하여 package.json의 `start` 명령을 편집합니다.
 
 ```
 MEDIASOUP_LISTEN_IP=127.0.0.1 MEDIASOUP_ANNOUNCED_IP=127.0.0.1 DEBUG=${DEBUG:='*mediasoup* *INFO* *WARN* *ERROR*'} INTERACTIVE=${INTERACTIVE:='true'} node index.js
@@ -393,40 +397,47 @@ MEDIASOUP_LISTEN_IP=127.0.0.1 MEDIASOUP_ANNOUNCED_IP=127.0.0.1 DEBUG=${DEBUG:='*
 
 For giving params `MEDIASOUP_LISTEN_IP` and `MEDIASOUP_ANNOUNCED_IP`
 
+매개변수 `MEDIASOUP_LISTEN_IP` 및 `MEDIASOUP_ANNOUNCED_IP` 제공
+
+
 ![Running preparation](/docs_img/run_dialog.png)
 
-Start dialog server with command:
+다음 명령어로 다이얼로그 서버 시작:
 ```
 npm run start
 ```
 
 `127.0.0.1` is the default IP of localhost on Mac / Linux you can look at the IP with this command:
 
+`127.0.0.1`은 Mac/Linux에서 localhost의 기본 IP입니다. 다음 명령으로 IP를 볼 수 있습니다:
+
 ```bash
 sudo nano /etc/hosts
 ```
 
-## 4.3 Run spoke
+## 4.3 spoke 실행
 
-with command
+다음 명령어 사용
 
 ```bash
 yarn start
 ```
 
-## 4.4 Run hubs and hubs admin
+## 4.4 hubs 와 hubs admin 실행.
 
 Each with command
+
+둘 다 다음 명령어로 실행
 
 ```bash
 npm run local
 ```
 
-## 4.5 Run postgREST server
+## 4.5 postgREST 서버 실행
 
-More about this is in [this](https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally)
+이에 대한 자세한 내용은 [여기](https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally)에 있습니다.
 
-Download postREST
+postREST 다운로드
 
 ```
 sudo apt install libpq-dev
@@ -434,21 +445,27 @@ wget https://github.com/PostgREST/postgrest/releases/download/v9.0.0/postgrest-v
 tar -xf postgrest-v9.0.0-linux-static-x64.tar.xz
 ```
 
-On reticulum iex
+reticulum iex 상에서
 
-paste this
+다음을 붙여넣기 합니다.
 ```
 jwk = Application.get_env(:ret, Ret.PermsToken)[:perms_key] |> JOSE.JWK.from_pem(); JOSE.JWK.to_file("reticulum-jwk.json", jwk)
 ```
 
 then it will create `reticulum-jwk.json` in your reticulum directory
 
+그러면 reticulum 디렉토리에 `reticulum-jwk.json`이 생성됩니다.
+
 Make `reticulum.conf` file 
+
+`reticulum.conf` 파일 만들기
 
 ```
 nano reticulum.conf
 ```
 and paste 
+
+그리고 붙여넣기.. 합니다.
 
 ```
 # reticulum.conf
@@ -462,6 +479,8 @@ role-claim-key = ".postgrest_role"
 
 then the folder looks like this (contain two files)
 
+폴더는 다음과 같습니다(두 개의 파일 포함).
+
 ```
 /
    postgrest
@@ -470,15 +489,22 @@ then the folder looks like this (contain two files)
 
 then run  postREST with
 
+그런 다음 postREST를 실행합니다.
+
 ```
 postgrest reticulum.conf
 ```
+
+이때, postgrest 경로를 찾을 수 없다고 나오면, postgrest 앞에 전체 디렉토리 경로를 입력합니다.(reticulum.conf 파일이 있는 디렉토리 경로)
+
+예) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
+
 <br>
 <br>
 
-Urraaaa, Now you can access
+전부 실행이 완료되면, 드디어 Hubs 에 접속이 가능합니다.
 
-with lock symbol (SSL secure)
+잠금 기호 포함(SSL 보안)
 
 Hubs
 
@@ -496,12 +522,10 @@ Spoke
 <br>
 <br>
 
-[Paypal](https://paypal.me/AlbirrKarim)
-
-<a href='https://ko-fi.com/Q5Q0BC92X' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 
-## Also read:
+
+## 한번 읽어보세요 : 
 
 [Hosting Mozilla Hubs on VPS](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/VPS_FOR_HUBS.md)
 
@@ -514,3 +538,12 @@ Spoke
 [Overview System With Figma](https://www.figma.com/file/h92Je1ac9AtgrR5OHVv9DZ/Overview-Mozilla-Hubs-Project?node-id=0%3A1)
 
 [Experience Sharing About Hosting on Other Server](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/EXPERIENCE.md)
+
+
+
+
+## Special Thanks : 
+
+[Paypal](https://paypal.me/AlbirrKarim)
+
+<a href='https://ko-fi.com/Q5Q0BC92X' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
