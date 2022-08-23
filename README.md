@@ -251,108 +251,127 @@ from the [hubs repo](#14-hubs) you can move to `hubs/admin` then run
 npm install
 ```
 
-# 2. Setting up HOST
+# 2. 호스트 설정
 
 We are not using `hubs.local` domain. we use `localhost`
+우리는 `hub.local` 도메인을 사용하지 않습니다. 우리는 `localhost`를 사용합니다
 
 so change every host configuration on reticulum, dialog, hubs, hubs admin, spoke.
+따라서 레티큘럼, 대화 상자, 허브, 허브 관리, 스포크의 모든 호스트 구성을 변경해야합니다.
 
-# 3. Setting up HTTPS (SSL)
+# 3. HTTPS(SSL) 설정
 
 All the servers must serve with HTTPS. you must generate a certificate and key file
+모든 서버는 HTTPS와 함께 제공되어야 합니다. 인증서와 키 파일을 생성해야 합니다.
 
-## 3.1 Generating certificate and making it trust
+## 3.1 인증서 생성 및 신뢰 만들기
 
-Open terminal in reticulum directory
+reticulum 디렉토리에서 터미널 열기
 
-run command
+명령을 실행
 
 ```bash
 mix phx.gen.cert
 ```
 
 It will generate key `selfsigned_key.pem` and certificate `selfsigned.pem` in the `priv/cert` folder
+`priv/cert` 폴더에 `self signed key.pem` 키와 인증서 `self signed.pem`을 생성합니다.
 
 Rename `selfsigned_key.pem` to `key.pem`
+`selfsigned_key.pem`의 이름을 `key.pem`으로 바꿉니다.
 
-Rename `selfsigned.pem` to `cert.pem`
+Rename `selfsigned.pem` to `cert.crt`
+`selfsigned.pem`의 이름을 `cert.pem`으로 바꿉니다.
+단, MacOS는 'cert.crt' 이 아닌 'cert.pem' 로 바꾸어야 합니다.
 
-#### Now we have `key.pem` and `cert.pem` file
+#### Now we have `key.pem` and `cert.crt` file
+#### 이제 `key.pem` 및 `cert.crt` 파일이 있습니다.
 
-In Mac OS, I don't know in windows or Linux. please find it yourself
+cert.crt 는 리눅스에서 특정 폴더로 복사한 뒤, 명령어를 입력하여 인증서를 허가합니다.
+윈도우에도 동일한 작업을 해주면 윈도우에서 브라우저 접속시 경고메시지가 안뜨게 됩니다.
 
-Open the `cert.pem` on the tab system find that certificate then clicks twice and change to always trust.
 
 ![Https mozilla hubs](/docs_img/cert.png)
 
-Select the `cert.pem` and `key.pem` and copy it. next step we will distribute those two files into hubs, hubs admin, spoke, dialog, and reticulum.
+`cert.crt`과 `key.pem`을 선택하고 복사합니다. 다음 단계에서는 이 두 파일을 Hubs, Hubs Admin, Spoke, Dialog 및 Reticulum 에 배포합니다.
 
-Oke first set up in the reticulum.
+그럼, 먼저 Reticulum 에서 설정합니다.
 
-## 3.2 Setting https for reticulum
+## 3.2 레티큘럼에 대한 https 설정
 
 On the `config/dev.exs` We must be setting the path for the certificate and key file.
 
+`config/dev.exs`에서 인증서와 키 파일의 경로를 설정해야 합니다.
+
 ![Https mozilla hubs](/docs_img/cert_1.png)
 
-## 3.3 Setting HTTPS for hubs
+## 3.3 허브용 HTTPS 설정
 
 Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/certs`
 
-We run hubs with `npm run local` right?
-so add additional params on `package.json`
+'hubs/certs' 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
-`--https --cert certs/cert.pem --key certs/key.pem`
+우리는 `npm run local`로 허브를 실행합니다.
+그래서 `package.json`에 추가 매개변수를 추가해야합니다.
 
-Like this picture
+`--https --cert certs/cert.crt --key certs/key.pem`
+
+이 사진처럼
 
 ![ssl hubs](/docs_img/ssl_hubs.png)
 
-## 3.4 Setting HTTPS for hubs admin
+## 3.4 허브 관리자용 HTTPS 설정
 
 Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/admin/certs`
+`hubs/admin/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
-We run hubs with `npm run local` right?
-so add additional params on `package.json`
+우리는 `npm run local`로 허브(Admin)를 실행합니다.
+그래서 `package.json`에 추가 매개변수를 추가하십시오.
 
-`--https --cert certs/cert.pem --key certs/key.pem`
+`--https --cert certs/cert.crt --key certs/key.pem`
 
-Like this picture
+이 사진처럼
 
 ![ssl hubs admin](/docs_img/ssl_hubs_admin.png)
 
-## 3.5 Setting HTTPS for spoke
+## 3.5 스포크용 HTTPS 설정
 
 Paste [that](#now-we-have-keypem-and-certpem-file) file into `spoke/certs`
+`spoke/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
 We run spoke with `yarn start` right?
+우리는 'yarn start'로 스포크 실행합니다.
 So change the `start` command
+따라서 `start` 명령을 변경하십시오.
 
 ![ssl hubs admin](/docs_img/ssl_spoke.png)
 
-With this
+그리고 다음과 같이 수정합니다.
 
 ```
 cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://localhost:9090/ webpack-dev-server --mode development --https --cert certs/cert.pem --key certs/key.pem
 ```
 
-Short description:
+간단한 설명::
 
 BASE_ASSETS_PATH = basicaly we run the spoke on localhost:9090
+BASE_ASSETS_PATH = 기본적으로 localhost:9090에서 스포크를 실행합니다.
 
-## 3.6 Setting https for dialog
+## 3.6 Dialog에 대한 https 설정
 
 Paste [that](#now-we-have-keypem-and-certpem-file) file into `dialog/certs`
+`dialog/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
-rename `cert.pem` to `fullchain.pem`
+cert.crt`을 `fullchain.pem`으로 이름을 바꿉니다.
 
-rename `key.pem` to `privkey.pem`
+key.pem`을 `privkey.pem`으로 이름을 바꿉니다.
 
 ![ssl hubs dialog](/docs_img/ssl_dialog_1.png)
 
-# 4. Running
+# 4. 실행
 
 Open five terminals. for each reticulum, dialog, spoke, hubs, hubs admin.
+5개의 터미널을 엽니다. 각 reticulum, dialog, spoke, hubs, hubs admin 에 대해.
 
 ![Running preparation](/docs_img/ss.png)
 
