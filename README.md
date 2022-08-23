@@ -73,11 +73,11 @@ Hubs Admin - websocket을 사용하여 인증(로그인)을 위해 postgREST와 
 
 주요 단계 - [Cloning and Preparation](#1-cloning-and-preparation) -> [Setting up HOST](#2-setting-up-host) -> [Setting up HTTPS (SSL)](#3-setting-up-https-ssl) -> [Running](#4-runing)
 
-# 1. Cloning and preparation
+# 1. 복제 및 준비
 
 ## 1.1 Reticulum
 
-It's a backend server that uses elixir and phoenix.
+엘릭서와 피닉스를 사용하는 백엔드 서버입니다.
 
 ### 1.1.1 Clone
 
@@ -86,66 +86,66 @@ git clone https://github.com/mozilla/reticulum.git
 cd reticulum
 ```
 
-### 1.1.2 Install requirement
+### 1.1.2 설치 요구 사항
 
-#### Postgres Database
+#### Postgres 데이타베이스
 
-Install on [linux ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
+[리눅스](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)에 설치하기
 
-Install on mac
+Mac 에 설치하기.
 
-With brew for installing CLI Postgres
+CLI Postgres 설치를 위한 brew 사용
 
 ```
 brew install postgres
 ```
 
-Then create user/change password
+그런 다음 user 생성/password 변경
 
 user: `postgres`
 
 password : `postgres`
 
-and alter it 
+그리고 권한을 변경
 
 ```
 ALTER USER postgres WITH SUPERUSER
 ```
 
-#### Elixir and Erlang (Elixir 1.12 and erlang version 23)
+#### Elixir and Erlang (Elixir 1.12 and erlang 버전 23)
 
-You can install those with follow [this tutorial](https://www.pluralsight.com/guides/installing-elixir-erlang-with-asdf)
+이 [튜토리얼](https://www.pluralsight.com/guides/installing-elixir-erlang-with-asdf)을 따라 설치할 수 있습니다.
 
-Be careful about the version of elixir and erlang.
+Elixir와 erlang의 버전에 주의하십시오.
 
 <!-- **Ansible**
 
 You can use `pip` to install. take a look at this [tutorial](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#from-pip) -->
 
-### 1.1.3 run this command
+### 1.1.3 다음 명령어를 실행
 
 1. `mix deps.get`
 2. `mix ecto.create`
-   - If step 2 fails, you may need to change the password for the `postgres` role to match the password configured `dev.exs`.
-   - From within the `psql` shell, enter `ALTER USER postgres WITH PASSWORD 'postgres';`
-   - If you receive an error that the `ret_dev` database does not exist, (using psql again) enter `create database ret_dev;`
-3. From the project directory `mkdir -p storage/dev`
+    - 2단계가 실패하면 `dev.exs`에 구성된 비밀번호와 일치하도록 `postgres` 역할의 비밀번호를 변경해야 할 수 있습니다.
+    - `psql` 쉘 내에서 `ALTER USER postgres WITH PASSWORD 'postgres';`를 입력합니다.
+    - `ret_dev` 데이터베이스가 존재하지 않는다는 오류가 발생하면 (psql 쉘을 다시 사용하여) `create database ret_dev;`를 입력합니다.
+3.  프로젝트 디렉토리에서 `mkdir -p storage/dev`
 
-### 1.1.4 Run Reticulum against a local Dialog instance
+### 1.1.4 로컬 Dialog 인스턴스에 대해 Reticulum 실행
 
-1. Update the Janus host in `dev.exs`:
+1. `dev.exs`에서 Janus 호스트를 업데이트합니다:
 
 ```elixir
 dev_janus_host = "localhost"
 ```
 
-2. Update the Janus port in `dev.exs`:
+2. `dev.exs`에서 Janus 포트를 업데이트합니다:
 
 ```elixir
 config :ret, Ret.JanusLoadStatus, default_janus_host: dev_janus_host, janus_port: 4443
 ```
 
-3. Add the Dialog meta endpoint to the CSP rules in `add_csp.ex`:
+3. `add_csp.ex`의 CSP 규칙에 Dialog 메타 엔드포인트를 추가합니다:
 
 ```elixir
 default_janus_csp_rule =
@@ -154,11 +154,11 @@ default_janus_csp_rule =
       else: ""
 ```
 
-4. Find on google how to install coturn, and manage it
+4. coturn 설치 및 관리 방법은 구글에서 찾아보세요.
 
-[install coturn on ubuntu](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04)
+[우분투에 coturn 설치](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04)
 
-5. Edit the Dialog [configuration file](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04) `turnserver.conf` and update the PostgreSQL database connection string to use the _coturn_ schema from the Reticulum database:
+5. Dialog [구성 파일](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04) 편집`turnserver.conf` 및 Reticulum 데이터베이스의 _coturn_ 스키마를 사용하도록 PostgreSQL 데이터베이스 연결 문자열을 업데이트합니다:
 
 ```
 psql-userdb="host=localhost dbname=ret_dev user=postgres password=postgres options='-c search_path=coturn' connect_timeout=30"
