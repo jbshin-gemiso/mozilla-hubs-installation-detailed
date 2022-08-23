@@ -166,9 +166,9 @@ psql-userdb="host=localhost dbname=ret_dev user=postgres password=postgres optio
 
 ## 1.2 Dialog
 
-Using mediasoup RTC will handle audio and video real-time communication. like camera stream, share screen.
+mediasoup RTC를 사용하여 오디오 및 비디오 실시간 통신을 처리합니다. 카메라 스트림과 같은 공유 화면에서 사용됩니다.
 
-### 1.2.1 Clone and get dependencies
+### 1.2.1 복제 및 종속성 가져오기
 
 ```bash
 git clone https://github.com/mozilla/dialog.git
@@ -176,18 +176,18 @@ cd dialog
 npm install
 ```
 
-### 1.2.2 Setting up secret key
+### 1.2.2 비밀 키 설정
 
-thanks to this [comment](https://github.com/mozilla/hubs/discussions/3323#discussioncomment-1857495)
+이 [코멘트](https://github.com/mozilla/hubs/discussions/3323#discussioncomment-1857495) 를 참고해주세요.
 
-Generate RSA (Public and Private key) with [generator online](https://travistidwell.com/jsencrypt/demo/)
+[generator online](https://travistidwell.com/jsencrypt/demo/)을 사용하여 RSA(공개 및 개인 키) 생성.
 
-make empty file `perms.pub.pem` and fill it with RSA Public key
+빈 파일 `perms.pub.pem`을 만들고 RSA 공개 키로 채웁니다.
 
 ![RSA generator ](/docs_img/rsa.png)
 ![Paste](/docs_img/rsa_1.png)
 
-Goto reticulum directory on `reticulum/config/dev.exs` change PermsToken with the RSA private key that you generate before.
+`reticulum/config/dev.exs`의 reticulum 디렉토리로 이동하여 이전에 생성한 RSA 개인 키로 PermsToken을 변경합니다.
 
 ```elixir
 config :ret, Ret.PermsToken, perms_key: "-----BEGIN RSA PRIVATE KEY----- paste here copyed key but add every line \n before END RSA PRIVATE KEY-----"
@@ -195,9 +195,9 @@ config :ret, Ret.PermsToken, perms_key: "-----BEGIN RSA PRIVATE KEY----- paste h
 
 ## 1.3 Spoke
 
-In here you can create/edit the scenes/buildings whatever you call it.
+여기에서 장면/건물을 무엇이라고 부르든 생성/편집할 수 있습니다.
 
-### 1.3.1 Clone
+### 1.3.1 복제
 
 ![Mozilla Spoke](/docs_img/spoke.png)
 
@@ -207,15 +207,19 @@ cd Spoke
 yarn install
 ```
 
-### 1.3.2 Set the base routes
+### 1.3.2 기본 경로 설정
 
 I hope you know the basic `react-router-dom` with the default URL in  slash `/` on `localhost:9090`
+`localhost:9090`의 슬래시 `/`에 기본 URL이 있는 기본 `react-router-dom`을 알고 있기를 바랍니다.
 
 But in the end, we will access the spoke on `localhost:4000/spoke`
+그러나 결국 `localhost:4000/spoke`의 스포크에 액세스합니다.
 
 So we must set the base URL to `/spoke`
+따라서 기본 URL을 `/spoke`로 설정해야 합니다.
 
 Add the `ROUTER_BASE_PATH=/spoke` params to the `start` command on `package.json`
+`package.json`의 `start` 명령에 `ROUTER_BASE_PATH=/spoke` 매개변수를 추가합니다.
 
 
 ![Mozilla Spoke](/docs_img/spoke_change.png)
@@ -226,11 +230,11 @@ cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://
 
 ## 1.4 Hubs
 
-In this [repo](https://github.com/mozilla/hubs) contains the hubs client and hubs admin (hubs/admin)
+이 [repo](https://github.com/mozilla/hubs)에는 허브 클라이언트 및 허브 관리자(hubs/admin)가 포함되어 있습니다.
 
 ![System Overview](/docs_img/hubs_overview.jpeg)
 
-Clone and install dependencies
+종속성 복제 및 설치
 
 ```
 git clone https://github.com/mozilla/hubs.git
@@ -241,6 +245,7 @@ npm ci
 ## 1.5 Hubs Admin
 
 from the [hubs repo](#14-hubs) you can move to `hubs/admin` then run
+[hubs repo](#14-hubs)에서 `hubs/admin`으로 이동한 다음 실행할 수 있습니다.
 
 ```
 npm install
