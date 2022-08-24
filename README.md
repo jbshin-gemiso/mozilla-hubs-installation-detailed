@@ -1,16 +1,23 @@
 # 소개
 
-이 리포지토리에는 mozilla 허브에 대한 기술 지식이 포함되어 있습니다.
-서로 도와줍시다.
+이 문서는 Local 에 mozilla 허브를 설치하고 실행하는 방법에 대한 내용이 담겨있습니다.
+
+Windows 10 Pro(version 21H2) + WSL2 + Ubuntu 20.04.4 LTS  기반에서 작업이 진행되었습니다.
+
 
 # 로컬로 Mozilla Hub 설치
 
-이 문서는 albirrkarim/mozilla-hubs-installation-detailed 를 기반으로 제작되었습니다.
+이 문서는 [albirrkarim/mozilla-hubs-installation-detailed](https://github.com/albirrkarim/mozilla-hubs-installation-detailed) 를 기반으로 제작되었습니다.
+
 해당문서의 튜토리얼 영상 [youtube video](https://youtu.be/KH1T9u9DaCo). 
+
 단, 튜토리얼 영상은 맥북으로 작성되어 MacOS 기반입니다. 그래서 이 문서와는 조금 차이가 있습니다. 주의하세요.
 
+<br>
+
 이것은 로컬에서 Mozilla 허브를 실행하는 것에 관한 것입니다. 이것은 내가 하는 일을 단계별로 자세히 설명한 버전입니다.
-기억하다! 1시간 동안 해결할 수 없는 npm 또는 종속성에 문제가 있는 경우. PC를 다시 시작하면 됩니다. 날 믿어.
+
+기억하세요! 1시간 동안 해결할 수 없는 npm 또는 종속성에 문제가 있는 경우. PC를 다시 시작하면 됩니다.(100% 해결방법은 아닙니다.)
 
 VPS 에서 Hubs를 설치하는 방법은 다음문서를 참고해주세요. [Hosting Mozilla Hubs on VPS](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/VPS_FOR_HUBS.md)
 
@@ -28,9 +35,9 @@ VPS 에서 Hubs를 설치하는 방법은 다음문서를 참고해주세요. [H
 
 - 최소 8GB RAM
 - 빠른 CPU 사용 권장
-- 우분투 20
+- Ubuntu linux 20
 
-### 소프트웨어
+### 소프트웨어:
 
 - node.js가 설치되었습니다. 허브를 설치할 때 버전은 v16을 사용합니다.
 
@@ -56,15 +63,15 @@ VPS 에서 Hubs를 설치하는 방법은 다음문서를 참고해주세요. [H
 
 ### 요약
 
-Reticulum - 주요 호스트입니다. 그것은 위치, 회전, 개체의 상태를 동기화합니다. http 요청 및 websocket을 통해 클라이언트 브라우저와 통신합니다.
+Reticulum - 주요 호스트입니다. 위치, 회전, 개체의 상태를 동기화합니다. http 요청 및 websocket을 통해 클라이언트 브라우저와 통신합니다.
 
-Dialog - 동기화 비디오 및 오디오 사용자. 웹 소켓을 통해 클라이언트 브라우저와 통신합니다.
+Dialog - 사용자의 비디오 및 오디오를 동기화 합니다. 웹 소켓을 통해 클라이언트 브라우저와 통신합니다.
 
-Hubs, Spoke - 정적 자산을 제공한 다음 레티큘럼이 이를 가져와 클라이언트 브라우저로 전달합니다.
+Hubs, Spoke - static asset을 제공하고, Reticulum 이 이를 가져와 클라이언트 브라우저로 전달합니다.
 
 postREST - 허브 관리자가 CRUD(읽기 업데이트 삭제 생성)와 같은 기본 작업을 수행하는 데 도움이 되는 서버입니다.
 
-Hubs Admin - websocket을 사용하여 인증(로그인)을 위해 postgREST와 통신합니다. CRUD 목적의 허브 관리자는 http 요청(GET, POST 등)을 레티큘럼에 보낸 다음 프록시를 postgREST에 전달하는 레티큘럼을 보냅니다.
+Hubs Admin - websocket을 사용하여 인증(로그인)을 위해 postgREST와 통신합니다. CRUD 목적의 허브 관리자는 http 요청(GET, POST 등)을 Reticulum 에 보낸 다음 Reticulum 은postgREST에 프록시 전달을 수행합니다.
 
 <br/>
 <br/>
@@ -116,7 +123,8 @@ ALTER USER postgres WITH SUPERUSER
 
 이 [튜토리얼](https://www.pluralsight.com/guides/installing-elixir-erlang-with-asdf)을 따라 설치할 수 있습니다.
 
-Elixir와 erlang의 버전에 주의하십시오.
+Elixir(버전 1.12)와 erlang(버전 23)의 버전에 주의해야합니다. 다른 버전을 설치할경우 지원을 하지 않거나 호환성에 문제가 있을 수 있습니다.
+
 
 <!-- **Ansible**
 
@@ -145,7 +153,7 @@ dev_janus_host = "localhost"
 config :ret, Ret.JanusLoadStatus, default_janus_host: dev_janus_host, janus_port: 4443
 ```
 
-3. `add_csp.ex`의 CSP 규칙에 ialog 메타 엔드포인트를 추가합니다:
+3. `add_csp.ex`의 CSP 규칙에 dialog 메타 엔드포인트를 추가합니다:
 
 ```elixir
 default_janus_csp_rule =
@@ -195,7 +203,6 @@ config :ret, Ret.PermsToken, perms_key: "-----BEGIN RSA PRIVATE KEY----- paste h
 
 ## 1.3 Spoke
 
-여기에서 장면/건물을 무엇이라고 부르든 생성/편집할 수 있습니다.
 Hubs 의 편집기 입니다. 씬을 생성하고 편집/배포할 수 있습니다.
 
 ### 1.3.1 복제
@@ -210,18 +217,13 @@ yarn install
 
 ### 1.3.2 기본 경로 설정
 
-I hope you know the basic `react-router-dom` with the default URL in  slash `/` on `localhost:9090`
+`localhost:9090`의 슬래시 `/`에 기본 URL이 있는 `react-router-dom`을 기본적으로 알고 있기를 바랍니다.
 
-`localhost:9090`의 슬래시 `/`에 기본 URL이 있는 기본 `react-router-dom`을 알고 있기를 바랍니다.
+(I hope you know the basic `react-router-dom` with the default URL in  slash `/` on `localhost:9090`)
 
-But in the end, we will access the spoke on `localhost:4000/spoke`
+어쨋든 결국, 스포크 주소로 `localhost:4000/spoke` 를 사용하여 액세스 할것입니다.
 
-그러나 결국 `localhost:4000/spoke`의 스포크에 액세스합니다.
-
-So we must set the base URL to `/spoke`
 따라서 기본 URL을 `/spoke`로 설정해야 합니다.
-
-Add the `ROUTER_BASE_PATH=/spoke` params to the `start` command on `package.json`
 
 `package.json`의 `start` 명령에 `ROUTER_BASE_PATH=/spoke` 매개변수를 추가합니다.
 
