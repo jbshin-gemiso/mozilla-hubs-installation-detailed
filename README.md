@@ -41,11 +41,7 @@ VPS 에서 Hubs를 설치하는 방법은 다음문서를 참고해주세요. [H
 
 - node.js가 설치되었습니다. 허브를 설치할 때 버전은 v16을 사용합니다.
 
-### 지식
-
-아래의 사항들에 대하여 이미 알고 있다고 가정합니다. 그렇지 않다면 먼저 기술을 향상시켜야 합니다.
-
-![Up skill](/docs_img/excercise.gif)
+### 필요한 지식
 
 - Javascript
 - React js
@@ -59,7 +55,7 @@ VPS 에서 Hubs를 설치하는 방법은 다음문서를 참고해주세요. [H
 
 [figma](https://www.figma.com/) 로 만든 위의 이미지 는 [문서](https://hubs.mozilla.com/docs/system-overview.html) 에서 더 많은 설명을 읽을 수 있습니다
 
-또한 데이터베이스에 대한 소프트웨어 개요, 아키텍처 및 테이블을 만들려고 합니다. 내 [figma 프로젝트](https://www.figma.com/file/h92Je1ac9AtgrR5OHVv9DZ/Overview-Mozilla-Hubs-Project?node-id=0%3A1) 를 볼 수 있습니다
+또한 데이터베이스에 대한 소프트웨어 개요, 아키텍처 및 테이블을 만들려고 합니다. [figma 프로젝트](https://www.figma.com/file/h92Je1ac9AtgrR5OHVv9DZ/Overview-Mozilla-Hubs-Project?node-id=0%3A1) 를 볼 수 있습니다
 
 ### 요약
 
