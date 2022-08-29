@@ -258,7 +258,7 @@ npm install
 
 따라서 reticulum, dialog, hubs, hubs admin, spoke의 모든 호스트 구성을 변경(hubs.local -> localhost)해야합니다.
 
-튜토리얼 동영상[youtube video](https://youtu.be/KH1T9u9DaCo?t=1490) 을 참조하세요. 
+튜토리얼 [동영상](https://youtu.be/KH1T9u9DaCo?t=1482) 을 참조하세요. 
 
 ** 변경에 대한 내용 보강 필요 **
 
