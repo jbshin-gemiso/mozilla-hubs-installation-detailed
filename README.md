@@ -328,7 +328,7 @@ It will generate key `selfsigned_key.pem` and certificate `selfsigned.pem` in th
 먼저 인증서를 리눅스에 신뢰할수 있는 Root 인증서로 추가합니다. Ubuntu 리눅스를 기준으로 작성되었습니다.
 <br>
 
-cert.pem 인증서의 경우, cert.crt 인증서로 변경한다.
+cert.pem 인증서의 경우, cert.crt 인증서로 반드시 변경해야 합니다.
 
 ```bash
 openssl x509 -in cert.pem -inform pem -out cert.crt
@@ -367,8 +367,6 @@ On the `config/dev.exs` We must be setting the path for the certificate and key 
 
 ## 3.3 허브용 HTTPS 설정
 
-Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/certs`
-
 'hubs/certs' 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
 우리는 `npm run local`로 허브를 실행합니다.
@@ -382,8 +380,6 @@ Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/certs`
 ![ssl hubs](/docs_img/ssl_hubs.png)
 
 ## 3.4 허브 관리자용 HTTPS 설정
-
-Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/admin/certs`
 
 `hubs/admin/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
@@ -399,7 +395,6 @@ Paste [that](#now-we-have-keypem-and-certpem-file) file into `hubs/admin/certs`
 
 ## 3.5 스포크용 HTTPS 설정
 
-Paste [that](#now-we-have-keypem-and-certpem-file) file into `spoke/certs`
 
 `spoke/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
@@ -421,8 +416,6 @@ cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://
 BASE_ASSETS_PATH = 기본적으로 localhost:9090에서 스포크를 실행합니다.
 
 ## 3.6 Dialog에 대한 https 설정
-
-Paste [that](#now-we-have-keypem-and-certpem-file) file into `dialog/certs`
 
 `dialog/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
