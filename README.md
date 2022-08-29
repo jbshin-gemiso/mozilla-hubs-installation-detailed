@@ -5,7 +5,7 @@
 Windows 10 Pro(version 21H2) + WSL2 + Ubuntu 20.04.4 LTS  기반에서 작업이 진행되었습니다.
 
 
-# 로컬로 Mozilla Hub 설치
+# 로컬로 Mozilla Hubs 설치
 
 이 문서는 [albirrkarim/mozilla-hubs-installation-detailed](https://github.com/albirrkarim/mozilla-hubs-installation-detailed) 를 기반으로 제작되었습니다.
 
@@ -259,8 +259,43 @@ npm install
 따라서 reticulum, dialog, hubs, hubs admin, spoke의 모든 호스트 구성을 변경(hubs.local -> localhost)해야합니다.
 
 튜토리얼 [동영상](https://youtu.be/KH1T9u9DaCo?t=1482) 을 참조하세요. 
+<br>
 
-** 변경에 대한 내용 보강 필요 **
+`hubs.local`  -> `localhost` 의 치환에는 크게 두가지 방법이 있습니다.
+
+1. 해당폴더에 접근하여 비주얼 스튜디오 코드나 서브라임 텍스트와 같은 편집기로 치환하는 방법.
+
+2. 리눅스의 명령어로 특정폴더내 모든 해당단어를 치환.
+
+<br>
+
+## 2.1 편집기를 통한 치환
+
+리눅스 상에서 해당 폴더에 접근한 후, 다음과 같은 명령어를 입력합니다.
+
+```
+explorer.exe .
+```
+
+이렇게 하면 해당 폴더가 윈도우 탐색기 창으로 나타납니다. 이를 통해 WSL2 리눅스 폴더를 윈도우에서 접근할 수 있습니다.
+
+이제 폴더경로를 알았으니 이를 기준으로 편집기를 이용하여, `hubs.local` 을 `localhost`로 수정합니다.
+
+<br>
+
+## 2.2 리눅스 명령어를 통한 치환
+
+리눅스 상에서 해당 폴더로 접근 한후 폴더내 모든 문서의 특정 문자열을 치환하는 명령어를 입력한다. 명령어는 다음과 같습니다.
+
+```
+$ find ./ -type f |xargs sed -i 's/{바꿀문자열}/{새로운문자열}/g'
+
+예) Test 를 test 로 바꾸려 한다면...
+
+$ find ./ -type f |xargs sed -i 's/TEST/test/g'
+```
+
+<br>
 
 # 3. HTTPS(SSL) 설정
 
