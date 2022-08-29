@@ -15,7 +15,7 @@ Windows 10 Pro(version 21H2) + WSL2 + Ubuntu 20.04.4 LTS  기반에서 작업이
 
 <br>
 
-이것은 로컬에서 Mozilla 허브를 실행하는 것에 관한 것입니다. 이것은 내가 하는 일을 단계별로 자세히 설명한 버전입니다.
+이것은 로컬에서 Mozilla 허브를 실행하는 것에 관한 것입니다. 설치 방벙을 단계별로 자세히 설명한 버전입니다.
 
 기억하세요! 1시간 동안 해결할 수 없는 npm 또는 종속성에 문제가 있는 경우. PC를 다시 시작하면 됩니다.(100% 해결방법은 아닙니다.)
 
@@ -53,7 +53,7 @@ VPS 에서 Hubs를 설치하는 방법은 다음문서를 참고해주세요. [H
 
 ![시스템 오버뷰](/docs_img/System_Overview.png)
 
-[figma](https://www.figma.com/) 로 만든 위의 이미지 는 [문서](https://hubs.mozilla.com/docs/system-overview.html) 에서 더 많은 설명을 읽을 수 있습니다
+[figma](https://www.figma.com/) 로 만든 위의 이미지 는 [문서](https://hubs.mozilla.com/docs/system-overview.html) 에서 더 많은 설명을 읽을 수 있습니다.
 
 또한 데이터베이스에 대한 소프트웨어 개요, 아키텍처 및 테이블을 만들려고 합니다. [figma 프로젝트](https://www.figma.com/file/h92Je1ac9AtgrR5OHVv9DZ/Overview-Mozilla-Hubs-Project?node-id=0%3A1) 를 볼 수 있습니다
 
@@ -109,7 +109,7 @@ user: `postgres`
 
 password : `postgres`
 
-그리고 권한을 변경
+그리고 postgres 유저의 권한을 SUPERUSER 로 변경합니다.
 
 ```
 ALTER USER postgres WITH SUPERUSER
@@ -119,7 +119,7 @@ ALTER USER postgres WITH SUPERUSER
 
 이 [튜토리얼](https://www.pluralsight.com/guides/installing-elixir-erlang-with-asdf)을 따라 설치할 수 있습니다.
 
-Elixir(버전 1.12)와 erlang(버전 23)의 버전에 주의해야합니다. 다른 버전을 설치할경우 지원을 하지 않거나 호환성에 문제가 있을 수 있습니다.
+Elixir(버전 1.12)와 erlang(버전 23)의 버전에 주의해야합니다. 다른 버전을 설치 할 경우 지원을 하지 않거나 호환성에 문제가 있을 수 있습니다.
 
 
 <!-- **Ansible**
@@ -130,7 +130,7 @@ You can use `pip` to install. take a look at this [tutorial](https://docs.ansibl
 
 1. `mix deps.get`
 2. `mix ecto.create`
-    - 2단계가 실패하면 `dev.exs`에 구성된 비밀번호와 일치하도록 `postgres` 역할의 비밀번호를 변경해야 할 수 있습니다.
+    - 2단계가 실패하면 `dev.exs`에 구성된 비밀번호와 일치하도록 `postgres` 의 비밀번호를 변경해야 할 수 있습니다.
     - `psql` 쉘 내에서 `ALTER USER postgres WITH PASSWORD 'postgres';`를 입력합니다.
     - `ret_dev` 데이터베이스가 존재하지 않는다는 오류가 발생하면 (psql 쉘을 다시 사용하여) `create database ret_dev;`를 입력합니다.
 3.  프로젝트 디렉토리에서 `mkdir -p storage/dev`
@@ -158,9 +158,9 @@ default_janus_csp_rule =
       else: ""
 ```
 
-4. coturn 설치 및 관리 방법은 구글에서 찾아보세요.
+4. Coturn 설치 및 관리 방법은 구글에서 찾아보세요.
 
-[우분투에 coturn 설치](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04)
+[우분투에 Coturn 설치](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04)
 
 5. Dialog [구성 파일](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04) 편집`turnserver.conf` 및 Reticulum 데이터베이스의 _coturn_ 스키마를 사용하도록 PostgreSQL 데이터베이스 연결 문자열을 업데이트합니다:
 
@@ -170,7 +170,7 @@ psql-userdb="host=localhost dbname=ret_dev user=postgres password=postgres optio
 
 ## 1.2 Dialog
 
-mediasoup RTC를 사용하여 오디오 및 비디오 실시간 통신을 처리합니다. 카메라 스트림과 같은 공유 화면에서 사용됩니다.
+Dialog 는 mediasoup RTC를 사용하여 오디오 및 비디오 실시간 통신을 처리합니다. 카메라 스트림과 같은 공유 화면에서 사용됩니다.
 
 ### 1.2.1 복제 및 종속성 가져오기
 
@@ -254,11 +254,11 @@ npm install
 
 # 2. 호스트 설정
 
-우리는 `hub.local` 도메인을 사용하지 않습니다. 우리는 `localhost`를 사용합니다
+우리는 `hubs.local` 도메인을 사용하지 않습니다. 우리는 `localhost`를 사용합니다
 
 따라서 reticulum, dialog, hubs, hubs admin, spoke의 모든 호스트 구성을 변경(hubs.local -> localhost)해야합니다.
 
-튜토리얼 동영상을 참조하세요. 
+튜토리얼 동영상[youtube video](https://youtu.be/KH1T9u9DaCo?t=1490) 을 참조하세요. 
 
 ** 변경에 대한 내용 보강 필요 **
 
