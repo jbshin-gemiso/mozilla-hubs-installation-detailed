@@ -371,93 +371,88 @@ Select the `cert.crt` and `key.pem` and copy it. next step we will distribute th
 
 OK, first set up in the Reticulum.
 
-## 3.2 레티큘럼에 대한 https 설정
+## 3.2 Setting https for reticulum
 
 On the `config/dev.exs` We must be setting the path for the certificate and key file.
 
-`config/dev.exs`에서 인증서와 키 파일의 경로를 설정해야 합니다.
-
 ![Https mozilla hubs](/docs_img/cert_1.png)
 
-## 3.3 허브용 HTTPS 설정
+## 3.3 Setting HTTPS for Hubs
 
-'hubs/certs' 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
+Paste that [file](#now-we-have-keypem-and-certpem-file) into `hubs/certs`
 
-우리는 `npm run local`로 허브를 실행합니다.
+We run hubs with `npm run local`
 
-그래서 `package.json`에 추가 매개변수를 추가해야합니다.
+so add additional params on `package.json`
 
 `--https --cert certs/cert.crt --key certs/key.pem`
 
-이 사진처럼
+Like this picture
 
 ![ssl hubs](/docs_img/ssl_hubs.png)
 
-## 3.4 허브 관리자용 HTTPS 설정
+## 3.4 Setting HTTPS for Hubs admin
 
-`hubs/admin/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
+Paste that [file](#now-we-have-keypem-and-certpem-file) into `hubs/admin/certs`
 
-우리는 `npm run local`로 허브(Admin)를 실행합니다.
+We run Hubs admin with `npm run local`
 
-그래서 `package.json`에 추가 매개변수를 추가하십시오.
+so add additional params on `package.json`
 
 `--https --cert certs/cert.crt --key certs/key.pem`
 
-이 사진처럼
+Like this picture
 
 ![ssl hubs admin](/docs_img/ssl_hubs_admin.png)
 
-## 3.5 스포크용 HTTPS 설정
+## 3.5 Setting HTTPS for spoke
 
 
-`spoke/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
+Paste that [file](#now-we-have-keypem-and-certpem-file) into `spoke/certs`
 
+We run spoke with `yarn start`
 
-'yarn start'로 스포크 실행합니다.
-
-따라서 `start` 명령을 변경하십시오.
+So change the `start` command
 
 ![ssl hubs admin](/docs_img/ssl_spoke.png)
 
-그리고 다음과 같이 수정합니다.
+And modify it like this:
 
 ```
 cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://localhost:9090/ webpack-dev-server --mode development --https --cert certs/cert.pem --key certs/key.pem
 ```
 
-간단한 설명::
+Short description:
 
-BASE_ASSETS_PATH = 기본적으로 localhost:9090에서 스포크를 실행합니다.
+BASE_ASSETS_PATH = basicaly we run the spoke on localhost:9090
 
-## 3.6 Dialog에 대한 https 설정
+## 3.6 Setting https for dialog
 
-`dialog/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
+Paste that [file](#now-we-have-keypem-and-certpem-file) into `dialog/certs`
 
-cert.crt`을 `fullchain.pem`으로 이름을 바꿉니다.
+rename `cert.crt` to `fullchain.pem`
 
-key.pem`을 `privkey.pem`으로 이름을 바꿉니다.
+rename `key.pem` to `privkey.pem`
 
 ![ssl hubs dialog](/docs_img/ssl_dialog_1.png)
 
-# 4. 실행
+# 4. Running
 
 Open five terminals. for each reticulum, dialog, spoke, hubs, hubs admin.
 
-5개의 터미널을 엽니다. 각각 reticulum, dialog, spoke, hubs, hubs admin 의 실행을 위해서.. 
-
 ![Running preparation](/docs_img/ss.png)
 
-## 4.1 reticulum 실행
+## 4.1 Run reticulum
 
-다음 커맨드 입력
+with command
 
 ```bash
 iex -S mix phx.server
 ```
 
-## 4.2 dialog 실행
+## 4.2 Run dialog
 
-다음을 사용하여 package.json의 `start` 명령을 편집합니다.
+Edit the `start` command on the package.json with
 
 ```
 MEDIASOUP_LISTEN_IP=127.0.0.1 MEDIASOUP_ANNOUNCED_IP=127.0.0.1 DEBUG=${DEBUG:='*mediasoup* *INFO* *WARN* *ERROR*'} INTERACTIVE=${INTERACTIVE:='true'} node index.js
@@ -465,44 +460,41 @@ MEDIASOUP_LISTEN_IP=127.0.0.1 MEDIASOUP_ANNOUNCED_IP=127.0.0.1 DEBUG=${DEBUG:='*
 
 For giving params `MEDIASOUP_LISTEN_IP` and `MEDIASOUP_ANNOUNCED_IP`
 
-매개변수 `MEDIASOUP_LISTEN_IP` 및 `MEDIASOUP_ANNOUNCED_IP` 제공
-
 
 ![Running preparation](/docs_img/run_dialog.png)
 
-다음 명령어로 다이얼로그 서버 시작:
+Start dialog server with command:
 ```
 npm run start
 ```
 
-`127.0.0.1`은 Mac/Linux에서 localhost의 기본 IP입니다. 다음 명령으로 IP를 볼 수 있습니다:
+`127.0.0.1` is the default IP of localhost on Mac / Linux you can look at the IP with this command:
 
 ```bash
 sudo nano /etc/hosts
 ```
 
-## 4.3 spoke 실행
+## 4.3 Run spoke
 
-다음 명령어 사용
+with command
 
 ```bash
 yarn start
 ```
 
-## 4.4 hubs 와 hubs admin 실행.
+## 4.4 Run hubs and hubs admin
 
-
-둘 다 다음 명령어로 실행
+Each with command
 
 ```bash
 npm run local
 ```
 
-## 4.5 postgREST 서버 실행
+## 4.5 Run postgREST server
 
-이에 대한 자세한 내용은 [여기](https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally)에 있습니다.
+More about this is in [this](https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally)
 
-postREST 다운로드
+Download postREST
 
 ```
 sudo apt install libpq-dev
@@ -510,27 +502,23 @@ wget https://github.com/PostgREST/postgrest/releases/download/v9.0.0/postgrest-v
 tar -xf postgrest-v9.0.0-linux-static-x64.tar.xz
 ```
 
-reticulum iex 상에서
+On reticulum iex
 
-다음 명령어를 붙여넣기 한 후 실행 합니다.
+Paste the following command and run it.
 ```
 jwk = Application.get_env(:ret, Ret.PermsToken)[:perms_key] |> JOSE.JWK.from_pem(); JOSE.JWK.to_file("reticulum-jwk.json", jwk)
 ```
 
 then it will create `reticulum-jwk.json` in your reticulum directory
 
-그러면 reticulum 디렉토리에 `reticulum-jwk.json`이 생성됩니다.
-
 Make `reticulum.conf` file 
-
-`reticulum.conf` 파일 만들기
 
 ```
 nano reticulum.conf
 ```
 and paste 
 
-그리고 만들어진 파일에 아래의 내용을 붙여넣기 합니다.
+And paste the following content into the created file.
 
 ```
 # reticulum.conf
@@ -544,8 +532,6 @@ role-claim-key = ".postgrest_role"
 
 then the folder looks like this (contain two files)
 
-폴더는 다음과 같습니다(두 개의 파일 포함).
-
 ```
 /
    postgrest
@@ -554,22 +540,22 @@ then the folder looks like this (contain two files)
 
 then run  postREST with
 
-그런 다음 postREST를 실행합니다.
-
 ```
 postgrest reticulum.conf
 ```
 
-이때, postgrest 경로를 찾을 수 없다고 나오면, postgrest 앞에 전체 디렉토리 경로를 입력합니다.(reticulum.conf 파일이 있는 디렉토리 경로)
+At this time, if it says that the postgrest path cannot be found, enter the full directory path before postgrest.(Path to the directory where the `reticulum.conf` file is located)
 
-예) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
+```
+ex) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
+```
 
 <br>
 <br>
 
-전부 실행이 완료되면, 드디어 Hubs 에 접속이 가능합니다.
+When everything is running, you can finally connect to Hubs.
 
-잠금 기호 포함(SSL 보안)
+with lock symbol (SSL secure)
 
 Hubs
 
@@ -590,7 +576,7 @@ Spoke
 
 
 
-## 한번 읽어보세요 : 
+## Also read : 
 
 [Hosting Mozilla Hubs on VPS](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/VPS_FOR_HUBS.md)
 
