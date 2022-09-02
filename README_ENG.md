@@ -83,15 +83,15 @@ also creating a software overview, architecture and tables for the database. [fi
 <br/>
 <br/>
 
-# 주목!
+# Attention!
 
-주요 단계 - [Cloning and Preparation](#1-cloning-and-preparation) -> [Setting up HOST](#2-setting-up-host) -> [Setting up HTTPS (SSL)](#3-setting-up-https-ssl) -> [Running](#4-runing)
+major step - [Cloning and Preparation](#1-cloning-and-preparation) -> [Setting up HOST](#2-setting-up-host) -> [Setting up HTTPS (SSL)](#3-setting-up-https-ssl) -> [Running](#4-runing)
 
-# 1. 복제 및 준비
+# 1. Cloning and preparation
 
 ## 1.1 Reticulum
 
-엘릭서와 피닉스를 사용하는 백엔드 서버입니다.
+It's a backend server that uses elixir and phoenix.
 
 ### 1.1.1 Clone
 
@@ -100,15 +100,15 @@ git clone https://github.com/mozilla/reticulum.git
 cd reticulum
 ```
 
-### 1.1.2 설치 요구 사항
+### 1.1.2 Install requirement
 
-#### Postgres 데이타베이스
+#### Postgres Database
 
-[리눅스](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)에 설치하기
+install on [linux ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
 
-Mac 에 설치하기.
+Install on mac
 
-CLI Postgres 설치를 위한 brew 사용
+With brew for installing CLI Postgres
 
 ```
 brew install postgres
@@ -116,51 +116,53 @@ brew install postgres
 
 그런 다음 user 생성/password 변경
 
+Then create user/change password
+
 user: `postgres`
 
 password : `postgres`
 
-그리고 postgres 유저의 권한을 SUPERUSER 로 변경합니다.
+And change the privileges of the postgres user to SUPERUSER
 
 ```
 ALTER USER postgres WITH SUPERUSER
 ```
 
-#### Elixir and Erlang (Elixir 1.12 and erlang 버전 23)
+#### Elixir and Erlang (Elixir 1.12 and erlang version 23)
 
-이 [튜토리얼](https://www.pluralsight.com/guides/installing-elixir-erlang-with-asdf)을 따라 설치할 수 있습니다.
+You can install those with follow [tutorial](https://www.pluralsight.com/guides/installing-elixir-erlang-with-asdf)
 
-Elixir(버전 1.12)와 erlang(버전 23)의 버전에 주의해야합니다. 다른 버전을 설치 할 경우 지원을 하지 않거나 호환성에 문제가 있을 수 있습니다.
+Note the versions of Elixir (version 1.12) and erlang (version 23). If you install a different version, it may not be supported or there may be compatibility issues.
 
 
 <!-- **Ansible**
 
 You can use `pip` to install. take a look at this [tutorial](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#from-pip) -->
 
-### 1.1.3 다음 명령어를 실행
+### 1.1.3 run this command
 
 1. `mix deps.get`
 2. `mix ecto.create`
-    - 2단계가 실패하면 `dev.exs`에 구성된 비밀번호와 일치하도록 `postgres` 의 비밀번호를 변경해야 할 수 있습니다.
-    - `psql` 쉘 내에서 `ALTER USER postgres WITH PASSWORD 'postgres';`를 입력합니다.
-    - `ret_dev` 데이터베이스가 존재하지 않는다는 오류가 발생하면 (psql 쉘을 다시 사용하여) `create database ret_dev;`를 입력합니다.
-3.  프로젝트 디렉토리에서 `mkdir -p storage/dev`
+    - If step 2 fails, you may need to change the password for the `postgres` role to match the password configured `dev.exs`.
+    - From within the `psql` shell, enter `ALTER USER postgres WITH PASSWORD 'postgres';`
+    - If you receive an error that the `ret_dev` database does not exist, (using psql again) enter `create database ret_dev;`
+3.  From the project directory `mkdir -p storage/dev`
 
-### 1.1.4 로컬 Dialog 인스턴스에 대해 Reticulum 실행
+### 1.1.4 Run Reticulum against a local Dialog instance
 
-1. `dev.exs`에서 Janus 호스트를 업데이트합니다:
+1. Update the Janus host in `dev.exs`:
 
 ```elixir
 dev_janus_host = "localhost"
 ```
 
-2. `dev.exs`에서 Janus 포트를 업데이트합니다:
+2. Update the Janus port in`dev.exs`:
 
 ```elixir
 config :ret, Ret.JanusLoadStatus, default_janus_host: dev_janus_host, janus_port: 4443
 ```
 
-3. `add_csp.ex`의 CSP 규칙에 dialog 메타 엔드포인트를 추가합니다:
+3. Add the Dialog meta endpoint to the CSP rules in `add_csp.ex`:
 
 ```elixir
 default_janus_csp_rule =
@@ -169,11 +171,11 @@ default_janus_csp_rule =
       else: ""
 ```
 
-4. Coturn 설치 및 관리 방법은 구글에서 찾아보세요.
+4. Find on google how to install coturn, and manage it
 
-[우분투에 Coturn 설치](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04)
+[install coturn on ubuntu](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04)
 
-5. Dialog [구성 파일](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04) 편집`turnserver.conf` 및 Reticulum 데이터베이스의 _coturn_ 스키마를 사용하도록 PostgreSQL 데이터베이스 연결 문자열을 업데이트합니다:
+5. Edit the Dialog [configuration file](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04) `turnserver.conf` and update the PostgreSQL database connection string to use the coturn schema from the Reticulum database:
 
 ```
 psql-userdb="host=localhost dbname=ret_dev user=postgres password=postgres options='-c search_path=coturn' connect_timeout=30"
@@ -181,9 +183,9 @@ psql-userdb="host=localhost dbname=ret_dev user=postgres password=postgres optio
 
 ## 1.2 Dialog
 
-Dialog 는 mediasoup RTC를 사용하여 오디오 및 비디오 실시간 통신을 처리합니다. 카메라 스트림과 같은 공유 화면에서 사용됩니다.
+Using mediasoup RTC will handle audio and video real-time communication. like camera stream, share screen..
 
-### 1.2.1 복제 및 종속성 가져오기
+### 1.2.1 Clone and get dependencies
 
 ```bash
 git clone https://github.com/mozilla/dialog.git
@@ -191,18 +193,18 @@ cd dialog
 npm install
 ```
 
-### 1.2.2 비밀 키 설정
+### 1.2.2 Setting up secret key
 
-이 [코멘트](https://github.com/mozilla/hubs/discussions/3323#discussioncomment-1857495) 를 참고해주세요.
+Please refer to this [comment](https://github.com/mozilla/hubs/discussions/3323#discussioncomment-1857495)
 
-[generator online](https://travistidwell.com/jsencrypt/demo/)을 사용하여 RSA(공개 및 개인 키) 생성.
+Generate RSA (Public and Private key) with [generator online](https://travistidwell.com/jsencrypt/demo/)
 
-빈 파일 `perms.pub.pem`을 만들고 RSA 공개 키로 채웁니다.
+make empty file `perms.pub.pem` and fill it with RSA Public key
 
 ![RSA generator ](/docs_img/rsa.png)
 ![Paste](/docs_img/rsa_1.png)
 
-`reticulum/config/dev.exs`의 reticulum 디렉토리로 이동하여 이전에 생성한 RSA 개인 키로 PermsToken을 변경합니다.
+Goto reticulum directory on `reticulum/config/dev.exs` change PermsToken with the RSA private key that you generate before.
 
 ```elixir
 config :ret, Ret.PermsToken, perms_key: "-----BEGIN RSA PRIVATE KEY----- paste here copyed key but add every line \n before END RSA PRIVATE KEY-----"
@@ -210,9 +212,9 @@ config :ret, Ret.PermsToken, perms_key: "-----BEGIN RSA PRIVATE KEY----- paste h
 
 ## 1.3 Spoke
 
-Hubs 의 편집기 입니다. 씬을 생성하고 편집/배포할 수 있습니다.
+In here you can create/edit the scenes/buildings whatever you call it.
 
-### 1.3.1 복제
+### 1.3.1 Clone
 
 ![Mozilla Spoke](/docs_img/spoke.png)
 
@@ -222,7 +224,7 @@ cd Spoke
 yarn install
 ```
 
-### 1.3.2 기본 경로 설정
+### 1.3.2  Set the base routes
 
 `localhost:9090`의 슬래시 `/`에 기본 URL이 있는 `react-router-dom`을 기본적으로 알고 있기를 바랍니다.
 
