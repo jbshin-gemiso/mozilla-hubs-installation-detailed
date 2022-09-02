@@ -123,11 +123,32 @@ System has not been booted with systemd as init system (PID 1). Can't operate.
 
 
 
-postgresql 의 실행을 확인하였다면.. 다음 작업으로 user 생성/password 변경
+postgresql 의 실행을 확인하였다면.. 다음 작업으로 user 생성/password 변경합니다.
 
 user: `postgres`
 
 password : `postgres`
+
+먼저 postgres 계정으로 psql 에 쉘에 접속합니다.
+
+다음 명령어를 사용합니다.
+```
+sudo -i -u postgres
+```
+이때, root 권한의 비밀번호를 요구합니다. 비밀번호를 입력해줍니다.
+postgres 계정으로 변경한 후, psql 쉘 실행
+
+```
+psql
+```
+
+**** 이미지 추가
+
+
+
+
+
+
 
 그리고 postgres 유저의 권한을 SUPERUSER 로 변경합니다.
 
