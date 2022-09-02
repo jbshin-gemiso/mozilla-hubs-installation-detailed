@@ -226,15 +226,13 @@ yarn install
 
 ### 1.3.2  Set the base routes
 
-`localhost:9090`의 슬래시 `/`에 기본 URL이 있는 `react-router-dom`을 기본적으로 알고 있기를 바랍니다.
+I hope you know the basic `react-router-dom` with the default URL in  slash `/` on `localhost:9090`
 
-(I hope you know the basic `react-router-dom` with the default URL in  slash `/` on `localhost:9090`)
+But in the end, we will access the spoke on `localhost:4000/spoke`
 
-어쨋든 결국, 스포크 주소로 `localhost:4000/spoke` 를 사용하여 액세스 할것입니다.
+So we must set the base URL to `/spoke`
 
-따라서 기본 URL을 `/spoke`로 설정해야 합니다.
-
-`package.json`의 `start` 명령에 `ROUTER_BASE_PATH=/spoke` 매개변수를 추가합니다.
+Add the `ROUTER_BASE_PATH=/spoke` params to the `start` command on `package.json`
 
 
 ![Mozilla Spoke](/docs_img/spoke_change.png)
@@ -245,11 +243,11 @@ cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://
 
 ## 1.4 Hubs
 
-이 [repo](https://github.com/mozilla/hubs)에는 허브 클라이언트 및 허브 관리자(hubs/admin)가 포함되어 있습니다.
+In this [repo](https://github.com/mozilla/hubs)contains the hubs client and hubs admin (hubs/admin).
 
 ![System Overview](/docs_img/hubs_overview.jpeg)
 
-종속성 복제 및 설치
+Clone and install dependencies
 
 ```
 git clone https://github.com/mozilla/hubs.git
@@ -259,66 +257,67 @@ npm ci
 
 ## 1.5 Hubs Admin
 
-[hubs repo](#14-hubs)에서 `hubs/admin`으로 이동한 다음 실행할 수 있습니다.
+from the [hubs repo](#14-hubs) you can move to `hubs/admin` then run
 
 ```
 npm install
 ```
 
-# 2. 호스트 설정
+# 2. Setting up HOST
 
-우리는 `hubs.local` 도메인을 사용하지 않습니다. 우리는 `localhost`를 사용합니다
+We are not using `hubs.local` domain. we use `localhost`
 
-따라서 reticulum, dialog, hubs, hubs admin, spoke의 모든 호스트 구성을 변경(hubs.local -> localhost)해야합니다.
+so change every host configuration(hubs.local -> localhost) on reticulum, dialog, hubs, hubs admin, spoke.
 
-튜토리얼 [동영상](https://youtu.be/KH1T9u9DaCo?t=1482) 을 참조하세요. 
+See the tutorial [video](https://youtu.be/KH1T9u9DaCo?t=1482)
 <br>
 
-`hubs.local`  -> `localhost` 의 치환에는 크게 두가지 방법이 있습니다.
+There are two main ways to replace `hubs.local` -> `localhost`
 
-1. 해당폴더에 접근하여 비주얼 스튜디오 코드나 서브라임 텍스트와 같은 편집기로 치환하는 방법.
+1. Access that folder and replace it with an editor such as Visual Studio Code or Sublime Text.
 
-2. 리눅스의 명령어로 특정폴더내 모든 해당단어를 치환.
+2. Replaces all the corresponding words in a specific folder with a Linux command.
 
 <br>
 
-## 2.1 편집기를 통한 치환
+## 2.1 Substitution via editor
 
-리눅스 상에서 해당 폴더에 접근한 후, 다음과 같은 명령어를 입력합니다.
+After accessing the folder on Linux, enter the following command.
 
 ```
 explorer.exe .
 ```
 
-이렇게 하면 해당 폴더가 윈도우 탐색기 창으로 나타납니다. 이를 통해 WSL2 리눅스 폴더를 윈도우에서 접근할 수 있습니다.
+This will pop up the folder into a Windows Explorer window. So, now you can access the WSL2 Linux folder from Windows.
 
-이제 폴더경로를 알았으니 이를 기준으로 편집기를 이용하여, `hubs.local` 을 `localhost`로 수정합니다.
+Now that you know the folder path, use an editor based on this and edit `hubs.local` to `localhost`.
 
 <br>
 
-## 2.2 리눅스 명령어를 통한 치환
+## 2.2 Substitution via Linux commands
 
-리눅스 상에서 해당 폴더로 접근 한후 폴더내 모든 문서의 특정 문자열을 치환하는 명령어를 입력한다. 명령어는 다음과 같습니다.
+After accessing the folder on Linux, enter a command to replace a specific string of all documents in the folder. The command is:
 
 ```
-$ find ./ -type f |xargs sed -i 's/{바꿀문자열}/{새로운문자열}/g'
+$ find ./ -type f |xargs sed -i 's/{old String}/{new String}/g'
 
-예) Test 를 test 로 바꾸려 한다면...
+ex) If you want to change TEST to test...
 
 $ find ./ -type f |xargs sed -i 's/TEST/test/g'
 ```
 
 <br>
 
-# 3. HTTPS(SSL) 설정
+# 3. Setting up HTTPS (SSL)
 
-모든 서버는 HTTPS와 함께 제공되어야 합니다. 때문에 인증서와 키 파일을 반드시 생성해야 합니다.
+All the servers must serve with HTTPS. you must generate a certificate and key file
 
-## 3.1 인증서 생성 및 신뢰 만들기
+## 3.1 Generating certificate and making it trust
 
-reticulum 디렉토리에서 터미널 열고,
+Open terminal in reticulum directory,
 
-다음 명령을 실행하여 인증서와 키 파일을 생성합니다.
+Generate the certificate and key file by run command.
+
 
 ```bash
 mix phx.gen.cert
@@ -327,48 +326,50 @@ mix phx.gen.cert
 
 It will generate key `selfsigned_key.pem` and certificate `selfsigned.pem` in the `priv/cert` folder
 
-`priv/cert` 폴더에 `self signed key.pem` 키와 인증서 `self signed.pem`을 생성합니다.
+Rename `selfsigned_key.pem` to `key.pem`
 
-`selfsigned_key.pem`의 이름을 `key.pem`으로 바꿉니다.
-
-`selfsigned.pem`의 이름을 `cert.pem`으로 바꿉니다.
+Rename `selfsigned.pem` to `cert.pem`
 
 <br>
 
-#### 이제 `key.pem` 및 `cert.pem` 파일이 있습니다.
+#### Now we have`key.pem` and `cert.pem` file.
 
 
-먼저 인증서를 리눅스에 신뢰할수 있는 Root 인증서로 추가합니다. Ubuntu 리눅스를 기준으로 작성되었습니다.
+First, you need to register the certificate as a trusted root certificate in Ubuntu Linux.
 <br>
 
-cert.pem 인증서의 경우, cert.crt 인증서로 반드시 변경해야 합니다.
+For a `cert.pem` certificate, you must change it to a `cert.crt` certificate.
 
 ```bash
 openssl x509 -in cert.pem -inform pem -out cert.crt
 ```
 
-cert.crt 파일을 아래 디렉토리로 복사한다. (디렉토리가 없으면 생성)
+Copy the `cert.crt` file to the directory below. (create the directory if it doesn't exist)
 
 ```bash
 cp cert.crt /usr/share/ca-certificates/extra
 ```
-Ubuntu가 인증서를 신뢰할 수 있는 것으로 추가하도록 한다.
+
+Have Ubuntu linux add the certificate as trusted.
 
 ```bash
 dpkg-reconfigure ca-certificates
 ```
 
-이제 cert.pem(cert.crt) 인증서가 신뢰할 수 있는 인증서로 리눅스에 추가되었습니다.
 
+Now the `cert.pem (cert.crt)` certificate has been added to Linux as a trusted certificate.
 
 윈도우에도 동일한 작업을 해주면 윈도우에서 브라우저 접속시 경고메시지가 안뜨게 됩니다.
+If you do the same on Windows, the warning message will not appear when accessing the browser on Windows.
+
+---- 윈도우에 인증서 등록하는 방법 추가... 윈도우즈 10기준
 
 
 ![Https mozilla hubs](/docs_img/cert.png)
 
-`cert.crt`과 `key.pem`을 선택하고 복사합니다. 다음 단계에서는 이 두 파일을 Hubs, Hubs Admin, Spoke, Dialog 및 Reticulum 에 배포합니다.
+Select the `cert.crt` and `key.pem` and copy it. next step we will distribute those two files into Hubs, Hubs admin, Spoke, Dialog, and Reticulum.
 
-그럼, 먼저 Reticulum 에서 설정합니다.
+OK, first set up in the Reticulum.
 
 ## 3.2 레티큘럼에 대한 https 설정
 
