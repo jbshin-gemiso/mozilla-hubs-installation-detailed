@@ -95,15 +95,35 @@ cd reticulum
 
 [리눅스](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)에 설치하기
 
-Mac 에 설치하기.
-
-CLI Postgres 설치를 위한 brew 사용
-
+PostgreSQL을 설치하려면 먼저 서버의 로컬 패키지 인덱스를 새로 고칩니다.
 ```
-brew install postgres
+sudo apt update
 ```
 
-그런 다음 user 생성/password 변경
+그런 다음 몇 가지 추가 유틸리티 및 기능을 추가하는 `-contrib` 패키지와 함께 Postgres 패키지를 설치합니다.
+```
+sudo apt install postgresql postgresql-contrib
+```
+
+다음 명렁어로 postgresql 서비스를 시작합니다.
+```
+sudo service postgresql start
+```
+
+`* Starting PostgreSQL 12 database server       [OK]` 메시지가 나왔다면 정상적으로 postgresql 이 실행된것이다.
+
+#### 주의
+[튜토리얼](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)에는 postgresql 서비스 시작을 위해 `sudo systemctl start postgresql.service` 를 명령어를 사용하는데, 다음과 같은 에러메시지가 나온다.
+```
+System has not been booted with systemd as init system (PID 1). Can't operate.
+```
+
+이 에러는 systemctl 을 사용해서 나오는것으로, WSL 우분투가 기본적으로 지원하지 않기 때문이다. 때문에 systemctl 을 사용할수가 없다.
+우분투 리눅스에서 systemctl 을 사용 하기위해서는 추가로 작업을 하던지, 혹은 다른 방법(다른 명렁어)을 찾아야한다.
+
+
+
+postgresql 의 실행을 확인하였다면.. 다음 작업으로 user 생성/password 변경
 
 user: `postgres`
 
