@@ -106,13 +106,6 @@ cd reticulum
 
 install on [linux ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
 
-Install on mac
-
-With brew for installing CLI Postgres
-
-```
-brew install postgres
-```
 
 그런 다음 user 생성/password 변경
 
