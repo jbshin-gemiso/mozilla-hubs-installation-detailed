@@ -319,17 +319,25 @@ sudo service postgresql start
 
 1. `dev.exs`에서 Janus 호스트를 업데이트합니다:
 
+`dev.exs`는 reticulum 프로젝트의 config 폴더안에 있습니다. 즉, `/reticulum/config/dev.exs`
+
 ```elixir
 dev_janus_host = "localhost"
 ```
+
+![img_12](https://user-images.githubusercontent.com/75593521/188417176-8aca9876-274d-4337-870f-69e36dd39f46.png)
 
 2. `dev.exs`에서 Janus 포트를 업데이트합니다:
 
 ```elixir
 config :ret, Ret.JanusLoadStatus, default_janus_host: dev_janus_host, janus_port: 4443
 ```
+![img_11](https://user-images.githubusercontent.com/75593521/188417249-8eaa7f42-53b1-46bb-9870-49f829c62180.png)
+
 
 3. `add_csp.ex`의 CSP 규칙에 dialog 메타 엔드포인트를 추가합니다:
+
+`add_csp.ex`의 경로는 다음과 같습니다. `/reticulum/lib/ret_web/plugs/add_csp.ex`
 
 ```elixir
 default_janus_csp_rule =
@@ -337,6 +345,10 @@ default_janus_csp_rule =
       do: "wss://#{default_janus_host}:#{janus_port} https://#{default_janus_host}:#{janus_port} https://#{default_janus_host}:#{janus_port}/meta",
       else: ""
 ```
+
+![img_13](https://user-images.githubusercontent.com/75593521/188417309-e3af7a10-e277-4c5e-a989-a32dc59e724d.png)
+
+
 
 4. Coturn 설치 및 관리 방법은 구글에서 찾아보세요.
 
