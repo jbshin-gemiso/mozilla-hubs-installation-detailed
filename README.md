@@ -191,6 +191,10 @@ asdf plugin add elixir
 asdf install erlang 23.3
 ```
 
+<br>
+![img_04](https://user-images.githubusercontent.com/75593521/188382917-8f106c21-af59-46b2-8ed6-e72206ab2549.png)
+
+
 erlang 설치를 시도하면 높은 확률로 필요로하는 패키지가 없다는 메시지와 함께 설치에 실패한다.
 보통 이때 나오는 패키지는 `libssl-dev` `make` `autoconf` `automake` `libncurses5-dev` `gcc` 이다.
 만약 추가로 요구되는 패키지가 있다면 인터넷 검색을 통해 해당 패키지를 설치하자.
@@ -229,6 +233,10 @@ sudo apt install gcc
 
 이제 다시 ASDF 를 이용해 erlang 설치하면 문제없이 완료될것이다. erlang 설치는 보통 시간이 조금 걸리니 조금 기다리자.
 
+<br>
+![img_05](https://user-images.githubusercontent.com/75593521/188382970-50a80125-3287-4454-b5b7-c361b8018085.png)
+
+
 erlang 설치가 완료되었다면 elixir 를 설치한다.
 이때 elixir 의 설치에는 `unzip`이 필요하다. 커맨드 창에 `unzip` 을 입력했을때 unzip 을 찾을수 없다는 메시지가 나오면 unzip 을 설치한다.
 
@@ -245,6 +253,11 @@ asdf install elixir 1.12.3
 ```
 
 erlang 과 달리 보통 빠르게 설치가 끝날것이다.
+
+elixir 와 erlang 이 잘 설치가 됬는지 확인하자. `asdf list` 입력했을때 다음과같이 나오면 설치가 제대로 된 것이다.
+
+<br>
+![img_06](https://user-images.githubusercontent.com/75593521/188385289-117d375e-27e7-4597-a37c-50aa519e3cb5.png)
 
 
 <!-- **Ansible**
