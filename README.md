@@ -162,6 +162,90 @@ ALTER USER postgres WITH SUPERUSER;
 
 Elixir(버전 1.12)와 erlang(버전 23)의 버전에 주의해야합니다. 다른 버전을 설치 할 경우 지원을 하지 않거나 호환성에 문제가 있을 수 있습니다.
 
+이 문서에서는 튜토리얼 영상에 맞춰 Elixir 1.12.3 과  erlang 23.3 버전으로 설치하도록 하겠습니다.
+
+먼저 ASDF 를 복제합니다.
+
+```
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+```
+
+그리고 다음을 명령어를 입력하여줍니다.
+
+```
+. $HOME/.asdf/asdf.sh
+```
+
+이제 ASDF 를 사용할 수 있습니다.
+
+ASDF 를 이용하여 erlnag 과 elixir 설치를 시작합니다. 
+면저 ASDF elixir 와 erlang 플러그인을 설치해야합니다.
+
+```
+asdf plugin add erlang
+asdf plugin add elixir
+```
+
+플러그인 설치가 완료되면 erlang 23.3 을 설치합니다.
+```
+asdf install erlang 23.3
+```
+
+erlang 설치를 시도하면 높은 확률로 필요로하는 패키지가 없다는 메시지와 함께 설치에 실패한다.
+보통 이때 나오는 패키지는 `libssl-dev` `make` `autoconf` `automake` `libncurses5-dev` `gcc` 이다.
+만약 추가로 요구되는 패키지가 있다면 인터넷 검색을 통해 해당 패키지를 설치하자.
+
+필요로 하는 패키지를 설치해주자.
+
+libssl-dev
+```
+sudo apt-get install libssl-dev
+```
+
+make
+```
+sudo apt install gcc make
+```
+
+autoconf
+```
+sudo apt install autoconf
+```
+
+automake
+```
+sudo apt install automake
+```
+
+libncurses5-dev
+```
+sudo apt install libncurses5-dev
+```
+
+gcc
+```
+sudo apt install gcc
+```
+
+이제 다시 ASDF 를 이용해 erlang 설치하면 문제없이 완료될것이다. erlang 설치는 보통 시간이 조금 걸리니 조금 기다리자.
+
+erlang 설치가 완료되었다면 elixir 를 설치한다.
+이때 elixir 의 설치에는 `unzip`이 필요하다. 커맨드 창에 `unzip` 을 입력했을때 unzip 을 찾을수 없다는 메시지가 나오면 unzip 을 설치한다.
+
+```
+sudo apt install unzip
+```
+
+`unzip -v` 로 unzip 이 제대로 설치됬는지 확인하자. 버전 정보가 나온다면 제대로 설치된것이다.
+이제 다음 명령어로 elixir 를 설치한다.
+
+ 
+```
+asdf install elixir 1.12.3
+```
+
+erlang 과 달리 보통 빠르게 설치가 끝날것이다.
+
 
 <!-- **Ansible**
 
