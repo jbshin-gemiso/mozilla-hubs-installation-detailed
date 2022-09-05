@@ -287,10 +287,32 @@ You can use `pip` to install. take a look at this [tutorial](https://docs.ansibl
 ### 1.1.3 다음 명령어를 실행
 
 1. `mix deps.get`
+
+#### 주의
+`mix ecto.create` 를 실행하기전에 postgresql 이 온라인 상태인지 확인한다.
+
+```
+service postgresql status
+```
+
+만약 온라인 상태가 아니라면, postgresql 을 실행하여준다.
+
+```
+sudo service postgresql start
+```
+
+
 2. `mix ecto.create`
+
+
+설치에 시간이 조금 걸린다. 명령어 수행이 완료되면 최종적으로 다음과 같은 메시지가 나타난다.
+
+![img_09](https://user-images.githubusercontent.com/75593521/188405409-821a2987-129b-4ef3-9292-d9e54814b48f.png)
+
     - 2단계가 실패하면 `dev.exs`에 구성된 비밀번호와 일치하도록 `postgres` 의 비밀번호를 변경해야 할 수 있습니다.
     - `psql` 쉘 내에서 `ALTER USER postgres WITH PASSWORD 'postgres';`를 입력합니다.
     - `ret_dev` 데이터베이스가 존재하지 않는다는 오류가 발생하면 (psql 쉘을 다시 사용하여) `create database ret_dev;`를 입력합니다.
+
 3.  프로젝트 디렉토리에서 `mkdir -p storage/dev`
 
 ### 1.1.4 로컬 Dialog 인스턴스에 대해 Reticulum 실행
