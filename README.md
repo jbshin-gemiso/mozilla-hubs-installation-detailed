@@ -142,19 +142,19 @@ postgres 계정으로 변경한 후, psql 쉘 실행
 psql
 ```
 
-**** 이미지 추가
+`postgres` 계정의 비밀번호를 `postgres`로 바꾸기 위해 다음과 같이 psql 쉘 상에 입력한다.
 
-
-
-
-
-
+```
+ALTER USER postgres WITH PASSWORD 'postgres';
+```
 
 그리고 postgres 유저의 권한을 SUPERUSER 로 변경합니다.
 
 ```
-ALTER USER postgres WITH SUPERUSER
+ALTER USER postgres WITH SUPERUSER;
 ```
+![img_00_01](https://user-images.githubusercontent.com/75593521/188348585-0c625408-d029-47c0-aa8d-ec9b772b144c.png)
+
 
 #### Elixir and Erlang (Elixir 1.12 and erlang 버전 23)
 
