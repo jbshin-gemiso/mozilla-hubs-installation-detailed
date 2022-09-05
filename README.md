@@ -261,6 +261,25 @@ elixir 와 erlang 이 잘 설치가 됬는지 확인하자. `asdf list` 입력�
 ![img_06](https://user-images.githubusercontent.com/75593521/188385289-117d375e-27e7-4597-a37c-50aa519e3cb5.png)
 
 
+이제 프로젝트의 asdf 버전 설정을 해주어야 한다. reticulum 폴더로 이동하여 다음과 같이 입력하자.
+
+```
+asdf install
+asdf local erlang 23.3
+asdf locla elixir 1.12.3
+```
+
+`asdf install` 을 해당 폴더에서 입력해야 로컬 버전 설정이 가능해진다.
+
+전역 설정도 가능하다.
+
+```
+asdf global erlang 23.3
+asdf global elixir 1.12.3
+```
+
+만약 로컬 버전 설정이 없는 디렉토리라면 asdf 이용시 해당 버전으로 작동하게 된다.
+
 <!-- **Ansible**
 
 You can use `pip` to install. take a look at this [tutorial](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#from-pip) -->
