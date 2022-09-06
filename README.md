@@ -499,10 +499,63 @@ npm ci
 종속성 복제 및 설치
 
 ```
-git clone [https://github.com/mozilla/hubs.git](https://github.com/geminisoft-vn/larchiveum_hubs_reactjs)
-cd hubs
+git clone https://github.com/geminisoft-vn/larchiveum_hubs_reactjs
+cd larchiveum_hubs_reactjs
 npm ci
 ```
+
+#### 주의
+
+npm ci 를 통해 hubs 설치시 멈추는 현상이 발생할때가 있다.
+
+다음과 같이...특히 emojione 부분에서 많이 멈춘다. 혹은 easyrtc.
+
+easyrtc의 경우는 package.json 파일을 최신으로 업데이트하면 근본적으로 해결된다. 
+
+하지만 아래 방법으로도 해결이 어느정도 가능하다.
+
+
+![img_20](https://user-images.githubusercontent.com/75593521/188601108-c33bc301-51f3-4445-a8bb-7751c6775a95.png)
+
+보통 이 문제의 원인은 node.js 와 npm 의 버전이 너무 낮기 때문이다.
+
+`node -v` 와 `npm -v`로 버전을 확인해 본다.
+
+정상적으로 작동되는 nodejs와 npm 의 버전은 
+
+`node.js v16.16.0` 이상, `npm 8.14.0` 이상 이다. 
+
+만약 위의 버전보다 낮아서 문제가 발생한다면 아래의 방법으로 해결해보자.
+
+<br>
+
+먼저 nodejs 부터 설치한다.
+
+빌드 관련 툴 부터 설치한다. 안해도되지만, 하는것이 더 좋다.
+
+```
+sudo apt install -y build-essential
+```
+
+이제 nodejs 의 LTS(Long Term Support, 장기 지원) 버전을 설치한다.
+
+```
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+마찬가지로 npm 도 최신버전으로 설치한다.
+
+```
+npm install -g npm
+```
+
+이제 `npm ci`로 다시 설치를 시작해보자. 설치가 정상적으로 끝날것이다.  
+
+
+![img_21](https://user-images.githubusercontent.com/75593521/188605127-657480ec-c01c-4764-91e3-2d8053c55d22.png)
+
+
 
 ## 1.5 Hubs Admin
 
