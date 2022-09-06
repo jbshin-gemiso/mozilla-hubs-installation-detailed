@@ -555,6 +555,7 @@ npm install -g npm
 ![img_21](https://user-images.githubusercontent.com/75593521/188605127-657480ec-c01c-4764-91e3-2d8053c55d22.png)
 
 
+설치 후, 절대로 npm audit 을 입력하지 마세요. 불필요하며 재설치가 필요할 수 있습니다.
 
 ## 1.5 Hubs Admin
 
