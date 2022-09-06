@@ -473,6 +473,7 @@ yarn install
 cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://localhost:9090/ webpack-dev-server --mode development --https --cert certs/cert.pem --key certs/key.pem
 ```
 
+<!--
 ## 1.4 Hubs
 
 이 [repo](https://github.com/mozilla/hubs)에는 허브 클라이언트 및 허브 관리자(hubs/admin)가 포함되어 있습니다.
@@ -483,6 +484,22 @@ cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://
 
 ```
 git clone https://github.com/mozilla/hubs.git
+cd hubs
+npm ci
+```
+-->
+
+
+## 1.4 Hubs(larchiveum_hubs_reactjs)
+
+이 [repo](https://github.com/geminisoft-vn/larchiveum_hubs_reactjs)에는 허브 클라이언트 및 허브 관리자(hubs/admin)가 포함되어 있습니다.
+
+![System Overview](/docs_img/hubs_overview.jpeg)
+
+종속성 복제 및 설치
+
+```
+git clone [https://github.com/mozilla/hubs.git](https://github.com/geminisoft-vn/larchiveum_hubs_reactjs)
 cd hubs
 npm ci
 ```
