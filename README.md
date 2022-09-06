@@ -510,12 +510,11 @@ npm ci 를 통해 hubs 설치시 멈추는 현상이 발생할때가 있다.
 
 다음과 같이...특히 emojione 부분에서 많이 멈춘다. 혹은 easyrtc.
 
+![img_20](https://user-images.githubusercontent.com/75593521/188601108-c33bc301-51f3-4445-a8bb-7751c6775a95.png)
+
 easyrtc의 경우는 package.json 파일을 최신으로 업데이트하면 근본적으로 해결된다. 
 
 하지만 아래 방법으로도 해결이 어느정도 가능하다.
-
-
-![img_20](https://user-images.githubusercontent.com/75593521/188601108-c33bc301-51f3-4445-a8bb-7751c6775a95.png)
 
 보통 이 문제의 원인은 node.js 와 npm 의 버전이 너무 낮기 때문이다.
 
