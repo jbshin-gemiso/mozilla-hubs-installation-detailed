@@ -393,13 +393,19 @@ cd dialog
 npm install
 ```
 
-### 1.2.2 비밀 키 설정
+### 1.2.2 보안 키 설정
 
 이 [코멘트](https://github.com/mozilla/hubs/discussions/3323#discussioncomment-1857495) 를 참고해주세요.
 
 [generator online](https://travistidwell.com/jsencrypt/demo/)을 사용하여 RSA(공개 및 개인 키) 생성.
 
-빈 파일 `perms.pub.pem`을 만들고 RSA 공개 키로 채웁니다.
+빈 파일 `perms.pub.pem`을 dialog 프로젝트의 certs 폴더안에 만들고 RSA 공개 키로 채웁니다.
+
+```
+mkdir certs
+cd certs
+vi perms.pub.pem
+```
 
 ![RSA generator ](/docs_img/rsa.png)
 ![Paste](/docs_img/rsa_1.png)
@@ -409,6 +415,30 @@ npm install
 ```elixir
 config :ret, Ret.PermsToken, perms_key: "-----BEGIN RSA PRIVATE KEY----- paste here copyed key but add every line \n before END RSA PRIVATE KEY-----"
 ```
+Public Key 와 달리 Private Key 는 약간의 수정이 필요하다.
+모든줄에 `\n` 추가한다음, 한줄로 수정하여 `dev.exs` 에 붙여넣기 하여야 한다.
+
+먼저 Private Key 복사한 다음 붙여넣기한다.
+
+![img_15](https://user-images.githubusercontent.com/75593521/188557928-dcee72bd-2db9-4f17-a8fc-68c4f628a145.png)
+
+그런 다음 모든 둘째줄부터 모든행의 앞에 `\n`을 넣어준다. 
+
+![img_16](https://user-images.githubusercontent.com/75593521/188557966-1dab512a-02c0-4ba5-997e-cd625e925cec.png)
+
+그 후, 전부 한줄로 만들어준다.
+
+![img_17](https://user-images.githubusercontent.com/75593521/188557980-4df24ac4-9782-44e3-a25a-8e294b3f7594.png)
+
+`dev.exs`의 `config :ret,  Ret.PermsToken, perms_key:` 라인을 찾아 복사한 후, 기존 줄은 주석처리하고 복사한 줄의 값은 공란으로 처리한다.
+
+![img_18](https://user-images.githubusercontent.com/75593521/188558002-cf5beb07-6ecb-432c-a2ae-860361cff9fa.png)
+
+값으로 방금 수정한 PRIVATE KEY 값을 입력한다.
+
+![img_19](https://user-images.githubusercontent.com/75593521/188558011-22fd4645-b7c5-4e58-aaa4-3b6b36271dff.png)
+
+이제 보안 키 설정이 완료되었습니다. 다음 단계로 넘어갑니다.
 
 ## 1.3 Spoke
 
