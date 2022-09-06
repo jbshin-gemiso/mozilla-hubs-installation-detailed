@@ -350,15 +350,36 @@ default_janus_csp_rule =
 
 
 
-4. Coturn 설치 및 관리 방법은 구글에서 찾아보세요.
+4. Coturn 설치
 
-[우분투에 Coturn 설치](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04)
+참고 : [우분투에 Coturn 설치](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04)
 
-5. Dialog [구성 파일](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04) 편집`turnserver.conf` 및 Reticulum 데이터베이스의 _coturn_ 스키마를 사용하도록 PostgreSQL 데이터베이스 연결 문자열을 업데이트합니다:
+다음 명령어를 사용하여 coturn 을 설치합니다.
+
+```
+sudo apt-get -y update
+sudo apt-get install coturn
+```
+
+Dialog [구성 파일](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18-04) 편집`turnserver.conf` 및 Reticulum 데이터베이스의 _coturn_ 스키마를 사용하도록 PostgreSQL 데이터베이스 연결 문자열을 업데이트합니다:
+
+다음 명령어로 turnserver.conf 설정 파일을 수정합니다.
+
+혹은 폴더에 접근하여 윈도우즈 상에서 원하는 편집기로 수정해도 됩니다.
+
+```
+vi /etc/turnserver.conf
+or
+nano /etc/turnserver.conf
+```
+
+turnserver.conf 파일에 다음 내용을 붙여넣기 합니다.
 
 ```
 psql-userdb="host=localhost dbname=ret_dev user=postgres password=postgres options='-c search_path=coturn' connect_timeout=30"
 ```
+
+##### 이미지 추가
 
 ## 1.2 Dialog
 
