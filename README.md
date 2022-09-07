@@ -565,6 +565,9 @@ npm install -g npm
 npm install
 ```
 
+마찬가지로, 절대로 npm audit 을 입력하지 마세요. 불필요하며 재설치가 필요할 수 있습니다.
+<br>
+
 # 2. 호스트 설정
 
 우리는 `hubs.local` 도메인을 사용하지 않습니다. 우리는 `localhost`를 사용합니다
