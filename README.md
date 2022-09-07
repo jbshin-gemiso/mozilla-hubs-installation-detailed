@@ -743,7 +743,6 @@ BASE_ASSETS_PATH = 기본적으로 localhost:9090에서 스포크를 실행합�
 
 # 4. 실행
 
-Open five terminals. for each reticulum, dialog, spoke, hubs, hubs admin.
 
 5개의 터미널을 엽니다. 각각 reticulum, dialog, spoke, hubs, hubs admin 의 실행을 위해서.. 
 
