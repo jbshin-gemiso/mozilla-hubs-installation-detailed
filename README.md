@@ -653,16 +653,29 @@ openssl x509 -in cert.pem -inform pem -out cert.crt
 cert.crt 파일을 아래 디렉토리로 복사한다. (디렉토리가 없으면 생성)
 
 ```bash
-cp cert.crt /usr/share/ca-certificates/extra
+sudo cp cert.crt /usr/share/ca-certificates/extra
 ```
 Ubuntu가 인증서를 신뢰할 수 있는 것으로 추가하도록 한다.
 
 ```bash
-dpkg-reconfigure ca-certificates
+sudo dpkg-reconfigure ca-certificates
 ```
 
-이제 cert.pem(cert.crt) 인증서가 신뢰할 수 있는 인증서로 리눅스에 추가되었습니다.
+그럼 다음과같이 새로운 인증서를 추가할것이냐는 선택지가 나옵니다. `yes` 를 선택합니다.
 
+![img_22](https://user-images.githubusercontent.com/75593521/188849275-b5f150b7-fa7f-4b54-a8a3-c06dec6870f0.png)
+
+추가한 `extra/cert.crt`는 체크 되어 있지 않습니다. `스페이스 바` 키를 눌러 체크해준 뒤, 엔터를 쳐서 등록을 완료합니다.
+
+![img_23](https://user-images.githubusercontent.com/75593521/188849631-38efdd83-3371-46b2-a482-9ee668202c30.png)
+
+
+정상적으로 완료되면 다음과같은 메시지가 나옵니다.
+
+![img_24](https://user-images.githubusercontent.com/75593521/188850184-80895ac1-4c1c-437a-adc5-7ed9d8526e2f.png)
+
+
+이제 cert.pem(cert.crt) 인증서가 신뢰할 수 있는 인증서로 리눅스에 추가되었습니다.
 
 윈도우에도 동일한 작업을 해주면 윈도우에서 브라우저 접속시 경고메시지가 안뜨게 됩니다.
 
@@ -675,11 +688,13 @@ dpkg-reconfigure ca-certificates
 
 ## 3.2 레티큘럼에 대한 https 설정
 
-On the `config/dev.exs` We must be setting the path for the certificate and key file.
-
 `config/dev.exs`에서 인증서와 키 파일의 경로를 설정해야 합니다.
 
+![img_25](https://user-images.githubusercontent.com/75593521/188854832-1b030bd4-5c7b-43e7-b02c-7d849df6dfcd.png)
+
+<!--
 ![Https mozilla hubs](/docs_img/cert_1.png)
+-->
 
 ## 3.3 허브용 HTTPS 설정
 
