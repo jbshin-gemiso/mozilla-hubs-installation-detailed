@@ -712,7 +712,7 @@ On the `config/dev.exs` We must be setting the path for the certificate and key 
 `spoke/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
 
-'yarn start'로 스포크 실행합니다.
+`yarn start`로 스포크 실행합니다.
 
 따라서 `start` 명령을 변경하십시오.
 
@@ -732,9 +732,9 @@ BASE_ASSETS_PATH = 기본적으로 localhost:9090에서 스포크를 실행합�
 
 `dialog/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
-cert.crt`을 `fullchain.pem`으로 이름을 바꿉니다.
+`cert.crt`을 `fullchain.pem`으로 이름을 바꿉니다.
 
-key.pem`을 `privkey.pem`으로 이름을 바꿉니다.
+`key.pem`을 `privkey.pem`으로 이름을 바꿉니다.
 
 ![ssl hubs dialog](/docs_img/ssl_dialog_1.png)
 
