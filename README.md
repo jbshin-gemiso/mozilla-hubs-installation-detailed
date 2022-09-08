@@ -470,7 +470,7 @@ yarn install
 ![Mozilla Spoke](/docs_img/spoke_change.png)
 
 ```
-cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://localhost:9090/ webpack-dev-server --mode development --https --cert certs/cert.pem --key certs/key.pem
+cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://localhost:9090/ webpack-dev-server --mode development --https --cert certs/cert.crt --key certs/key.pem
 ```
 
 <!--
@@ -736,10 +736,12 @@ sudo dpkg-reconfigure ca-certificates
 
 ![ssl hubs admin](/docs_img/ssl_spoke.png)
 
-그리고 다음과 같이 수정합니다.
+그리고 다음과 같이 수정합니다. 
+
+#### 주의 - 이 작업은 1.3.2 에서 미리했던 작업입니다. 제대로 수정되었는지 다시 한번 확인만 하세요.
 
 ```
-cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://localhost:9090/ webpack-dev-server --mode development --https --cert certs/cert.pem --key certs/key.pem
+cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://localhost:9090/ webpack-dev-server --mode development --https --cert certs/cert.crt --key certs/key.pem
 ```
 
 간단한 설명::
