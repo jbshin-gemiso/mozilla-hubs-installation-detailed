@@ -547,5 +547,385 @@ npm install
 ```
 
 Likewise, never type npm audit . It is unnecessary and may require reinstallation.
+
 <br>
+
+# 2. Host Setup
+
+We do not use the `hubs.local` domain. We use `localhost`
+
+So you need to change all host configuration (hubs.local -> localhost) for reticulum, dialog, hubs, hubs admin, spoke.
+
+See the tutorial [video] (https://youtu.be/KH1T9u9DaCo?t=1482).
+<br>
+
+There are two main ways to replace `hubs.local` -> `localhost`.
+
+1. How to access the folder and replace it with an editor such as Visual Studio Code or Sublime Text.
+
+2. Replace all relevant words in a specific folder with Linux commands.
+
+<br>
+
+## 2.1 Substitution via editor
+
+After accessing the folder on Linux, enter the following command.
+
+```
+explorer.exe .
+```
+
+This will make the folder appear as a Windows Explorer window. This will allow you to access the WSL2 Linux folder from Windows.
+
+Now that you know the folder path, use an editor based on this and edit `hubs.local` to `localhost`.
+
+<br>
+
+## 2.2 Substitution via Linux commands
+
+After accessing the folder on Linux, enter a command to replace a specific string of all documents in the folder. The command is:
+
+```
+$ find ./ -type f xargs sed -i 's/{replace string}/{new string}/g'
+
+Ex) If you want to change Test to test...
+
+$ find ./ -type f xargs sed -i 's/TEST/test/g'
+```
+
+# 3. HTTPS (SSL) Settings
+
+All servers must come with HTTPS. For this reason, you must create a certificate and key file.
+
+## 3.1 Create Certificate and Create Trust
+
+Open a terminal in the reticulum directory,
+
+Generate a certificate and key file by running the following command:
+
+```bash
+mix phx.gen.cert
+```
+
+It will generate key `selfsigned_key.pem` and certificate `selfsigned.pem` in the `priv/cert` folder
+
+Create a `self signed key.pem` key and a certificate `self signed.pem` in the `priv/cert` folder.
+
+Rename `selfsigned_key.pem` to `key.pem`.
+
+Rename `selfsigned.pem` to `cert.pem`.
+
+<br>
+
+#### You now have the `key.pem` and `cert.pem` files.
+
+
+First, add the certificate as a trusted root certificate in Linux. It is written based on Ubuntu Linux.
+
+<br>
+
+For a `cert.pem` certificate, you must change it to a `cert.crt` certificate.
+
+```bash
+openssl x509 -in cert.pem -inform pem -out cert.crt
+```
+
+Copy the cert.crt file to the directory below. (create the directory if it doesn't exist)
+
+```bash
+sudo cp cert.crt /usr/share/ca-certificates/extra
+```
+Have Ubuntu add the certificate as trusted.
+
+```bash
+sudo dpkg-reconfigure ca-certificates
+```
+
+Then you will be asked whether you want to add a new certificate as follows. Choose `yes`.
+
+![img_22](https://user-images.githubusercontent.com/75593521/188849275-b5f150b7-fa7f-4b54-a8a3-c06dec6870f0.png)
+
+The added `extra/cert.crt` is unchecked. Press the 'Space bar' key to check it, and then press Enter to complete the registration.
+
+![img_23](https://user-images.githubusercontent.com/75593521/188849631-38efdd83-3371-46b2-a482-9ee668202c30.png)
+
+
+Upon successful completion, the following message appears.
+
+![img_24](https://user-images.githubusercontent.com/75593521/188850184-80895ac1-4c1c-437a-adc5-7ed9d8526e2f.png)
+
+
+Now the cert.pem (cert.crt) certificate has been added to Linux as a trusted certificate.
+
+If you do the same on Windows, the warning message will not appear when accessing the browser on Windows.
+
+![Https mozilla hubs](/docs_img/cert.png)
+
+Select and copy `cert.crt` and `key.pem`. The next step will deploy these two files to Hubs, Hubs Admin, Spoke, Dialog and Reticulum.
+
+So, first set in Reticulum.
+
+## 3.2 https settings for reticulum
+
+You need to set the path to the certificate and key files in `config/dev.exs`.
+
+![img_25](https://user-images.githubusercontent.com/75593521/188854832-1b030bd4-5c7b-43e7-b02c-7d849df6dfcd.png)
+
+<!--
+![Https mozilla hubs](/docs_img/cert_1.png)
+-->
+
+## 3.3 Setting HTTPS for Hub
+
+Copy the following [files] (#now-we-have-keypem-and-certpem-files) to the 'hubs/certs' folder.
+
+We run the hub with `npm run local`.
+
+So you need to add an extra parameter to `package.json`.
+
+`--https --cert certs/cert.crt --key certs/key.pem`
+
+like this picture
+
+![ssl hubs](/docs_img/ssl_hubs.png)
+
+
+## 3.4 HTTPS Settings for Hub Manager
+
+Copy the following [files] (#now-we-have-keypem-and-certpem-files) to the `hubs/admin/certs` folder.
+
+We run the hub (Admin) with `npm run local`.
+
+So add an extra parameter to `package.json`.
+
+`--https --cert certs/cert.crt --key certs/key.pem`
+
+like this picture
+
+![ssl hubs admin](/docs_img/ssl_hubs_admin.png)
+
+
+## 3.5 Setting HTTPS for Spoke
+
+
+Copy the following [files] (#now-we-have-keypem-and-certpem-files) to the `Spoke/certs` folder.
+
+
+Spoke execution with `yarn start`.
+
+So change the `start` command.
+
+![ssl hubs admin](/docs_img/ssl_spoke.png)
+
+And modify it like this:
+
+#### Caution - This operation was done beforehand in 1.3.2. Just double-check that it has been corrected correctly.
+
+```
+cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://localhost:9090/ webpack-dev-server --mode development --https --cert certs/cert.crt --key certs/key.pem
+```
+
+Brief Description::
+
+BASE_ASSETS_PATH = Run spokes on localhost:9090 by default.
+
+## 3.6 Setting https for Dialog
+
+Copy the following [files] (#now-we-have-keypem-and-certpem-files) to the `dialog/certs` folder.
+
+Rename `cert.crt` to `fullchain.pem`.
+
+Rename `key.pem` to `privkey.pem`.
+
+![ssl hubs dialog](/docs_img/ssl_dialog_1.png)
+
+# 4. Run
+
+
+Open 5 terminals. For execution of reticulum, dialog, spoke, hubs, hubs admin respectively..
+
+![Running preparation](/docs_img/ss.png)
+
+## 4.1 Running the reticulum
+
+Enter the following command
+
+```bash
+iex -S mix phx.server
+```
+
+## 4.2 Run dialog
+
+Edit the `start` command in package.json with:
+
+```
+MEDIASOUP_LISTEN_IP=127.0.0.1 MEDIASOUP_ANNOUNCED_IP=127.0.0.1 DEBUG=${DEBUG:='*mediasoup* *INFO* *WARN* *ERROR*'} INTERACTIVE=${INTERACTIVE:='true'} node index.js
+```
+
+For giving params `MEDIASOUP_LISTEN_IP` and `MEDIASOUP_ANNOUNCED_IP`
+
+![Running preparation](/docs_img/run_dialog.png)
+
+Start the dialog server with the following command:
+
+```
+npm run start
+```
+
+`127.0.0.1` is the default IP of localhost on Mac/Linux. You can see the IP with the following command:
+
+```bash
+sudo nano /etc/hosts
+```
+
+## 4.3 running Spoke
+
+Use the following command
+
+```bash
+yarn start
+```
+
+## 4.4 Run hubs and hubs admin.
+
+
+Both run with the following command
+
+```bash
+npm run local
+```
+
+## 4.5 running postgREST server
+
+More information on this can be found [here] (https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally).
+
+Download postREST
+
+```
+sudo apt install libpq-dev
+wget https://github.com/PostgREST/postgrest/releases/download/v9.0.0/postgrest-v9.0.0-linux-static-x64.tar.xz
+tar -xf postgrest-v9.0.0-linux-static-x64.tar.xz
+```
+
+on reticulum iex
+
+Paste the following command and run it.
+```
+jwk = Application.get_env(:ret, Ret.PermsToken)[:perms_key] |> JOSE.JWK.from_pem(); JOSE.JWK.to_file("reticulum-jwk.json", jwk)
+```
+
+then it will create `reticulum-jwk.json` in your reticulum directory
+
+This will create `reticulum-jwk.json` in the reticulum directory.
+
+Make `reticulum.conf` file
+
+Create a `reticulum.conf` file
+
+```
+nano reticulum.conf
+```
+and paste
+
+And paste the following content into the created file.
+
+```
+# reticulum.conf
+db-uri = "postgres://postgres:postgres@localhost:5432/ret_dev"
+db-schema = "ret0_admin"
+db-anon-role = "postgres_anonymous"
+jwt-secret = "@/absolute_path_to_your_file/reticulum-jwk.json"
+jwt-aud = "ret_perms"
+role-claim-key = ".postgrest_role"
+```
+
+then the folder looks like this (contain two files)
+
+The folder looks like this (with two files):
+
+```
+/
+   postgrest
+   reticulum.conf
+```
+
+then run postREST with
+
+Then run postREST.
+
+```
+postgrest reticulum.conf
+```
+
+At this time, if it says that the postgrest path cannot be found, enter the full directory path before postgrest. (The directory path where the reticulum.conf file is located)
+
+Ex) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
+
+<br>
+<br>
+
+When everything is running, you can finally connect to Hubs.
+
+With lock symbol (SSL security)
+
+Hubs
+
+[https://localhost:4000](https://localhost:4000)
+
+Hubs admin
+
+[https://localhost:4000/admin](https://localhost:4000/admin)
+
+Spoke
+
+[https://localhost:4000/spoke](https://localhost:4000/spoke)
+
+#5. Additional Settings
+
+When you log in for the first time, the mail login page will appear. First, enter your email address here.
+
+Then it changes to a page asking you to complete email authentication, but the problem is that no email settings (SMTP, etc.) have been made.
+
+Enter `https://localhost:4000?skipadmin` into the address bar to access the Hubs main page.
+
+Now, after trying to log in by entering an email, if you return to the terminal running in reticulum, you can see the authentication link (address) that should be delivered to the original email.
+
+![img_26](https://user-images.githubusercontent.com/75593521/189044884-360aa2d1-166b-4076-b1d5-d309b613f0e2.png)
+
+Email verification is possible by entering the address into an Internet browser and accessing it. If authentication is successful, you can see that you are logged in when you return to the hub page.
+
+Now set the email address to the 'admin' account.
+
+Return to the terminal where reticulum is running and enter the following command:
+
+```
+Ret.Account |> Ret.Repo.all() |> Enum.at(0) |> Ecto.Changeset.change(is_admin: true) |> Ret.Repo.update!()
+```
+
+![img_27](https://user-images.githubusercontent.com/75593521/189046618-1287be71-c342-48b9-96d4-da9a63b3c821.png)
+
+You are registered with an admin account, and you can now access the admin page.
+
+
+![img_28](https://user-images.githubusercontent.com/75593521/189047044-9e6794a5-f6ee-4169-9cd8-72ebb79b313a.png)
+
+
+<br>
+<br>
+
+
+
+## read it once : 
+
+[Hosting Mozilla Hubs on VPS](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/VPS_FOR_HUBS.md)
+
+[The Problem I Still Faced](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/PROBLEM_UNSOLVED.md)
+
+[The Problem I Faced and I Already Solved](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/PROBLEM_SOLVED.md)
+
+[Tips for Modification](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/HOW_TO_MODIFY.md)
+
+[Overview System With Figma](https://www.figma.com/file/h92Je1ac9AtgrR5OHVv9DZ/Overview-Mozilla-Hubs-Project?node-id=0%3A1)
+
+[Experience Sharing About Hosting on Other Server](https://github.com/albirrkarim/mozilla-hubs-installation-detailed/blob/main/EXPERIENCE.md)
 
