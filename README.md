@@ -902,6 +902,40 @@ Spoke
 [https://localhost:4000/spoke](https://localhost:4000/spoke)
 
 
+
+# 5. 추가 세팅
+
+처음 접속하면 메일 로그인 페이지가 뜰것이다. 여기에 먼저 이메일 주소를 입력한다.
+
+그러면 이메일 인증을 완료하라는 페이지로 바뀌는데, 문제는 아무런 이메일 세팅(SMTP 등..)을 하지 않았다는것이다.
+
+`https://localhost:4000?skipadmin` 을 주소창에 입력하여 Hubs 메인페이지로 접속합니다.
+
+이제, 이메일을 입력하여 로그인 시도를 한 후, reticulum 에 실행중인 터미널로 돌아와보면, 본래 이메일 로 전달되야할 인증 링크(주소)를 확인할 수 있다.
+
+![img_26](https://user-images.githubusercontent.com/75593521/189044884-360aa2d1-166b-4076-b1d5-d309b613f0e2.png)
+
+
+주소를 인터넷 브라우저에 입력해서 접속하면 이메일 인증이 가능하다. 인증에 성공하면 허브 페이지로 들아와 보면 로그인 되어있는것을 확인할 수 있습니다.
+
+이제 이메일 주소를 `admin` 계정으로 설정합니다.
+
+reticulum 이 실행중인 터미널로 돌아온 뒤 다음 명령어를 입력합니다.
+
+```
+Ret.Account |> Ret.Repo.all() |> Enum.at(0) |> Ecto.Changeset.change(is_admin: true) |> Ret.Repo.update!()
+```
+
+![img_27](https://user-images.githubusercontent.com/75593521/189046618-1287be71-c342-48b9-96d4-da9a63b3c821.png)
+
+
+admin 계정으로 등록되서, 이제 admin 페이지로 접근할 수 있습니다.
+
+
+![img_28](https://user-images.githubusercontent.com/75593521/189047044-9e6794a5-f6ee-4169-9cd8-72ebb79b313a.png)
+
+
+
 <br>
 <br>
 
