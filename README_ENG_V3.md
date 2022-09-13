@@ -923,6 +923,43 @@ You are registered with an admin account, and you can now access the admin page.
 
 ![img_28](https://user-images.githubusercontent.com/75593521/189047044-9e6794a5-f6ee-4169-9cd8-72ebb79b313a.png)
 
+When you click the Create Room button to open a room, nothing happens.
+
+This is because the additional code required for Larchiveum.link is written. maybe...
+
+The problem is with the following script.
+
+`larchiveum_hubs_reactjs/src/react-components/home/CreateRoomButton.js`
+
+Modify the contents of the script as follows.
+
+```
+import React from "react";
+import { FormattedMessage } from "react-intl";
+import { createAndRedirectToNewHub } from "../../utils/phoenix-utils";
+import { Button } from "../input/Button";
+import { useCssBreakpoints } from "react-use-css-breakpoints";
+
+export function CreateRoomButton() {
+  const breakpoint = useCssBreakpoints();
+
+  return(
+    <Button
+      thick={breakpoint === "sm" || breakpoint === "md"}
+      xl={breakpoint !== "sm" && breakpoint !== "md"}
+      preset="landing"
+      onClick={e => {
+        e.preventDefault();
+        createAndRedirectToNewHub(null, null, false);
+      }}
+    >
+      <FormattedMessage id="create-room-button" defaultMessage="Create Room" />
+    </Button>
+  );
+}
+```
+
+If there is no problem and the room is opened normally, there is no need to modify it.
 
 <br>
 <br>
