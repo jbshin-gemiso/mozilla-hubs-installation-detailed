@@ -885,7 +885,9 @@ postgrest reticulum.conf
 
 postgrest 와 reticulum.conf 파일이 있는 디렉토리 경로, 즉 reticulum 의 경로를 의미합니다.
 
+```
 예) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
+```
 
 <br>
 <br>
