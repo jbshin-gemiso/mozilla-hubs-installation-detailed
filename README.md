@@ -910,7 +910,7 @@ Spoke
 
 
 
-# 5. 추가 세팅
+#5. 추가 세팅
 
 처음 접속하면 메일 로그인 페이지가 뜰것이다. 여기에 먼저 이메일 주소를 입력한다.
 
@@ -940,6 +940,45 @@ admin 계정으로 등록되서, 이제 admin 페이지로 접근할 수 있습�
 
 
 ![img_28](https://user-images.githubusercontent.com/75593521/189047044-9e6794a5-f6ee-4169-9cd8-72ebb79b313a.png)
+
+
+룸을 개설하려고 룸 생성 버튼을 눌러도 아무 반응이 없을것입니다. 
+
+이것은 Larchiveum.link 에 필요한 추가코드가 작성되어 있기 때문입니다. 아마도...
+
+문제는 다음 스크립트에서 발생합니다.
+
+`larchiveum_hubs_reactjs/src/react-components/home/CreateRoomButton.js`
+
+스크립트의 내용을 다음과 같이 수정합니다.
+
+```
+import React from "react";
+import { FormattedMessage } from "react-intl";
+import { createAndRedirectToNewHub } from "../../utils/phoenix-utils";
+import { Button } from "../input/Button";
+import { useCssBreakpoints } from "react-use-css-breakpoints";
+
+export function CreateRoomButton() {
+  const breakpoint = useCssBreakpoints();
+
+  return (
+    <Button
+      thick={breakpoint === "sm" || breakpoint === "md"}
+      xl={breakpoint !== "sm" && breakpoint !== "md"}
+      preset="landing"
+      onClick={e => {
+        e.preventDefault();
+        createAndRedirectToNewHub(null, null, false);
+      }}
+    >
+      <FormattedMessage id="create-room-button" defaultMessage="Create Room" />
+    </Button>
+  );
+}
+```
+
+만약 문제가 발생하지 않고 정상적으로 룸이 개설된다면, 수정하지 않아도 됩니다.
 
 
 
