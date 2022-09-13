@@ -802,7 +802,7 @@ npm run local
 
 More information on this can be found [here](https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally).
 
-Download postREST
+Download postREST. You must proceed from the directory where reticulum is installed.
 
 ```
 sudo apt install libpq-dev
@@ -817,18 +817,21 @@ Paste the following command and run it.
 jwk = Application.get_env(:ret, Ret.PermsToken)[:perms_key] |> JOSE.JWK.from_pem(); JOSE.JWK.to_file("reticulum-jwk.json", jwk)
 ```
 
-then it will create `reticulum-jwk.json` in your reticulum directory
 
-This will create `reticulum-jwk.json` in the reticulum directory.
+Then it will create reticulum-jwk.json in the reticulum directory.
 
-Make `reticulum.conf` file
+Now use the following command to create the reticulum.conf file.
 
-Create a `reticulum.conf` file
 
 ```
 nano reticulum.conf
 ```
-and paste
+
+or
+
+```
+vi reticulum.conf
+```
 
 And paste the following content into the created file.
 
@@ -842,9 +845,14 @@ jwt-aud = "ret_perms"
 role-claim-key = ".postgrest_role"
 ```
 
-then the folder looks like this (contain two files)
+Be careful. Among the above, absolute_path_to_your_file must be written directly.
 
-The folder looks like this (with two files):
+```
+ex) jwt-secret = "@/home/ubuntu/hubs/reticulum/reticulum-jwk.json"
+```
+
+
+If you work up to this point, the following two files will exist in the reticulum folder:
 
 ```
 /
@@ -854,15 +862,18 @@ The folder looks like this (with two files):
 
 then run postREST with
 
-Then run postREST.
 
 ```
 postgrest reticulum.conf
 ```
 
-At this time, if it says that the postgrest path cannot be found, enter the full directory path before postgrest. (The directory path where the reticulum.conf file is located)
+At this time, if it says that the postgrest path cannot be found, enter the full directory path before postgrest.
 
-Ex) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
+It means the path to the directory where the postgrest and `reticulum.conf` files are located, that is, the path to reticulum .
+
+```
+ex) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
+```
 
 <br>
 <br>
