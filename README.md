@@ -820,7 +820,7 @@ npm run local
 
 이에 대한 자세한 내용은 [여기](https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally)에 있습니다.
 
-postREST 다운로드
+postREST 를 다운로드 합니다. reticulum 이 설치된 디렉토리에서 진행해야 합니다.
 
 ```
 sudo apt install libpq-dev
@@ -835,18 +835,19 @@ reticulum iex 상에서
 jwk = Application.get_env(:ret, Ret.PermsToken)[:perms_key] |> JOSE.JWK.from_pem(); JOSE.JWK.to_file("reticulum-jwk.json", jwk)
 ```
 
-then it will create `reticulum-jwk.json` in your reticulum directory
 
 그러면 reticulum 디렉토리에 `reticulum-jwk.json`이 생성됩니다.
 
-Make `reticulum.conf` file 
 
-`reticulum.conf` 파일 만들기
+이제 다음 명령어를 사용해서 `reticulum.conf` 파일 만들어 줍니다.
 
 ```
 nano reticulum.conf
 ```
-and paste 
+혹은
+```
+vi reticulum.conf
+```
 
 그리고 만들어진 파일에 아래의 내용을 붙여넣기 합니다.
 
@@ -860,9 +861,13 @@ jwt-aud = "ret_perms"
 role-claim-key = ".postgrest_role"
 ```
 
-then the folder looks like this (contain two files)
+주의하세요. 위 내용중 `absolute_path_to_your_file`는 직접 작성하여야 합니다.
 
-폴더는 다음과 같습니다(두 개의 파일 포함).
+```
+예) jwt-secret = "@/home/ubuntu/hubs/reticulum/reticulum-jwk.json"
+```
+
+여기까지 작업을 하면 reticulum 폴더에는 다음과 같은 두개의 파일이 존재할 것입니다.
 
 ```
 /
@@ -870,15 +875,15 @@ then the folder looks like this (contain two files)
    reticulum.conf
 ```
 
-then run  postREST with
-
-그런 다음 postREST를 실행합니다.
+그럼 postREST를 실행합니다.
 
 ```
 postgrest reticulum.conf
 ```
 
-이때, postgrest 경로를 찾을 수 없다고 나오면, postgrest 앞에 전체 디렉토리 경로를 입력합니다.(reticulum.conf 파일이 있는 디렉토리 경로)
+이때, postgrest 경로를 찾을 수 없다고 나오면, postgrest 앞에 전체 디렉토리 경로를 입력합니다.
+
+postgrest 와 reticulum.conf 파일이 있는 디렉토리 경로, 즉 reticulum 의 경로를 의미합니다.
 
 예) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
 
