@@ -50,7 +50,7 @@ Disclaimer - Attention!! This tutorial may not be best practice!!
 - Web Socket
 
 
-# summary
+# Overview
 
 ![System Overview](/docs_img/System_Overview.png)
 
@@ -58,7 +58,7 @@ Above image made with [figma](https://www.figma.com/) You can read more explanat
 
 You will also want to create a software overview, architecture, and tables for your database. You can see [figma project](https://www.figma.com/file/h92Je1ac9AtgrR5OHVv9DZ/Overview-Mozilla-Hubs-Project?node-id=0%3A1)
 
-### summary
+### Summary
 
 Reticulum - The main host. Synchronize the position, rotation, and state of objects. It communicates with the client browser via http requests and websockets.
 
@@ -70,9 +70,9 @@ postREST - A server that helps hub administrators perform basic operations such 
 
 Hubs Admin - Use websocket to communicate with postgREST for authentication (login). For CRUD purposes, the hub manager sends an http request (GET, POST, etc) to Reticulum, which then proxy forwards to postgREST.
 
-# fist!
+# Attention!
 
-Main Steps - [Cloning and Preparation](#1-cloning-and-preparation) -> [Setting up HOST](#2-setting-up-host) -> [Setting up HTTPS (SSL)](#3-setting -up-https-ssl) -> [Running](#4-runing)
+There is Major Steps - [Cloning and Preparation](#1-cloning-and-preparation) -> [Setting up HOST](#2-setting-up-host) -> [Setting up HTTPS (SSL)](#3-setting -up-https-ssl) -> [Running](#4-runing)
 
 #1. Cloning and Preparation
 
@@ -88,11 +88,11 @@ git clone https://github.com/mozilla/reticulum.git
 cd reticulum
 ```
 
-### 1.1.2 Installation Requirements
+### 1.1.2 Install  Requirements
 
 #### Postgres database
 
-Installing on [Linux] (https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
+Install  on [Linux] (https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
 
 To install PostgreSQL, first refresh the server's local package index.
 
@@ -278,7 +278,7 @@ If the directory does not have a local version setting, it will work with the co
 
 You can use `pip` to install. take a look at this [tutorial](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#from-pip) -->
 
-### 1.1.3 Run the following command
+### 1.1.3 Run this command
 
 1. `mix deps.get`
 
@@ -309,7 +309,7 @@ It will take some time to install. When the command execution is completed, the 
 3. In the project directory `mkdir -p storage/dev`
 
 
-### 1.1.4 Running Reticulum on local Dialog instance
+### 1.1.4 Run Reticulum against a local Dialog instance
 
 1. Update the Janus host in `dev.exs`:
 
@@ -344,7 +344,7 @@ default_janus_csp_rule =
 ![img_13](https://user-images.githubusercontent.com/75593521/188417309-e3af7a10-e277-4c5e-a989-a32dc59e724d.png)
 
 
-4. Coturn 설치
+4. install Coturn
 
 Note: [Install Coturn on Ubuntu] (https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu -18-04)
 
@@ -449,7 +449,7 @@ cd Spoke
 yarn install
 ```
 
-### 1.3.2 Set default path
+### 1.3.2 Set the base routes
 
 I hope you know basically `react-router-dom` with the base url at the slash `/` in `localhost:9090`.
 
@@ -550,7 +550,7 @@ Likewise, never type npm audit . It is unnecessary and may require reinstallatio
 
 <br>
 
-# 2. Host Setup
+# 2. Setting up HOST
 
 We do not use the `hubs.local` domain. We use `localhost`
 
@@ -593,11 +593,11 @@ Ex) If you want to change Test to test...
 $ find ./ -type f xargs sed -i 's/TEST/test/g'
 ```
 
-# 3. HTTPS (SSL) Settings
+# 3. Setting up HTTPS (SSL)
 
 All servers must come with HTTPS. For this reason, you must create a certificate and key file.
 
-## 3.1 Create Certificate and Create Trust
+## 3.1 Generating certificate and making it trust
 
 Open a terminal in the reticulum directory,
 
@@ -665,7 +665,7 @@ Select and copy `cert.crt` and `key.pem`. The next step will deploy these two fi
 
 So, first set in Reticulum.
 
-## 3.2 https settings for reticulum
+## 3.2 Setting https for reticulum
 
 You need to set the path to the certificate and key files in `config/dev.exs`.
 
@@ -690,7 +690,7 @@ like this picture
 ![ssl hubs](/docs_img/ssl_hubs.png)
 
 
-## 3.4 HTTPS Settings for Hub Manager
+## 3.4 Setting HTTPS for hubs admin
 
 Copy the following [files] (#now-we-have-keypem-and-certpem-files) to the `hubs/admin/certs` folder.
 
@@ -739,14 +739,14 @@ Rename `key.pem` to `privkey.pem`.
 
 ![ssl hubs dialog](/docs_img/ssl_dialog_1.png)
 
-# 4. Run
+# 4. Running
 
 
 Open 5 terminals. For execution of reticulum, dialog, spoke, hubs, hubs admin respectively..
 
 ![Running preparation](/docs_img/ss.png)
 
-## 4.1 Running the reticulum
+## 4.1 Run reticulum
 
 Enter the following command
 
@@ -778,7 +778,7 @@ npm run start
 sudo nano /etc/hosts
 ```
 
-## 4.3 running Spoke
+## 4.3 Run Spoke
 
 Use the following command
 
@@ -795,7 +795,7 @@ Both run with the following command
 npm run local
 ```
 
-## 4.5 running postgREST server
+## 4.5 Run postgREST server
 
 More information on this can be found [here] (https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally).
 
