@@ -9,7 +9,7 @@ Windows 10 Pro (version 21H2) + WSL2 + Ubuntu 20.04.4 LTS based on the work was 
 
 This document is based on [albirrkarim/mozilla-hubs-installation-detailed](https://github.com/albirrkarim/mozilla-hubs-installation-detailed).
 
-Tutorial video [youtube video] of the document (https://youtu.be/KH1T9u9DaCo).
+Tutorial video [youtube video](https://youtu.be/KH1T9u9DaCo) of the document .
 
 However, the tutorial video was written on a MacBook and is based on MacOS. So, it is a little different from this document. Be careful.
 
@@ -95,7 +95,7 @@ cd reticulum
 
 #### Postgres database
 
-Install  on [Linux] (https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
+Install  on [Linux](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart)
 
 To install PostgreSQL, first refresh the server's local package index.
 
@@ -119,7 +119,7 @@ If the message `* Starting PostgreSQL 12 database server [OK]` appears, postgres
 
 #### Caution
 
-[Tutorial] (https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart) has `sudo systemctl start postgresql.service` to start the postgresql service. command, the following error message appears:
+[Tutorial](https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart) has `sudo systemctl start postgresql.service` to start the postgresql service. command, the following error message appears:
 
 ```
 System has not been booted with systemd as init system (PID 1). Can't operate.
@@ -161,7 +161,7 @@ ALTER USER postgres WITH SUPERUSER;
 
 #### Elixir and Erlang (Elixir 1.12 and erlang version 23)
 
-You can install it by following this [tutorial] (https://www.pluralsight.com/guides/installing-elixir-erlang-with-asdf).
+You can install it by following this [tutorial](https://www.pluralsight.com/guides/installing-elixir-erlang-with-asdf).
 
 Note the versions of Elixir (version 1.12) and erlang (version 23). If you install a different version, it may not be supported or there may be compatibility issues.
 
@@ -349,7 +349,7 @@ default_janus_csp_rule =
 
 4. install Coturn
 
-Note: [Install Coturn on Ubuntu] (https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu -18-04)
+Note: [Install Coturn on Ubuntu](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu -18-04)
 
 Install coturn using the following command:
 
@@ -358,7 +358,7 @@ sudo apt-get -y update
 sudo apt-get install coturn
 ```
 
-Dialog [config file] (https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18- 04) Edit `turnserver.conf` and update the PostgreSQL database connection string to use the _coturn_ schema of the Reticulum database:
+Dialog [config file](https://ourcodeworld.com/articles/read/1175/how-to-create-and-configure-your-own-stun-turn-server-with-coturn-in-ubuntu-18- 04) Edit `turnserver.conf` and update the PostgreSQL database connection string to use the _coturn_ schema of the Reticulum database:
 
 Modify the turnserver.conf configuration file with the following command.
 
@@ -392,9 +392,9 @@ npm install
 
 ### 1.2.2 Set Security Key
 
-Please refer to this [comment] (https://github.com/mozilla/hubs/discussions/3323#discussioncomment-1857495).
+Please refer to this [comment](https://github.com/mozilla/hubs/discussions/3323#discussioncomment-1857495).
 
-Generate public and private keys (RSA) using [generator online] (https://travistidwell.com/jsencrypt/demo/).
+Generate public and private keys (RSA) using [generator online](https://travistidwell.com/jsencrypt/demo/).
 
 Create an empty file `perms.pub.pem` inside your dialog project's certs folder and fill it with your RSA public key.
 
@@ -474,7 +474,7 @@ cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://
 
 ## 1.4 Hubs (larchiveum_hubs_reactjs)
 
-This [repo] (https://github.com/geminisoft-vn/larchiveum_hubs_reactjs) contains the hub client and hub admin (hubs/admin).
+This [repo](https://github.com/geminisoft-vn/larchiveum_hubs_reactjs) contains the hub client and hub admin (hubs/admin).
 
 ![System Overview](/docs_img/hubs_overview.jpeg)
 
@@ -559,7 +559,7 @@ We do not use the `hubs.local` domain. We use `localhost`
 
 So you need to change all host configuration (hubs.local -> localhost) for reticulum, dialog, hubs, hubs admin, spoke.
 
-See the tutorial [video] (https://youtu.be/KH1T9u9DaCo?t=1482).
+See the tutorial [video](https://youtu.be/KH1T9u9DaCo?t=1482).
 <br>
 
 There are two main ways to replace `hubs.local` -> `localhost`.
@@ -680,7 +680,7 @@ You need to set the path to the certificate and key files in `config/dev.exs`.
 
 ## 3.3 Setting HTTPS for Hub
 
-Copy the following [files] (#now-we-have-keypem-and-certpem-files) to the 'hubs/certs' folder.
+Copy the following [files](#now-we-have-keypem-and-certpem-files) to the 'hubs/certs' folder.
 
 We run the hub with `npm run local`.
 
@@ -695,7 +695,7 @@ like this picture
 
 ## 3.4 Setting HTTPS for hubs admin
 
-Copy the following [files] (#now-we-have-keypem-and-certpem-files) to the `hubs/admin/certs` folder.
+Copy the following [files](#now-we-have-keypem-and-certpem-files) to the `hubs/admin/certs` folder.
 
 We run the hub (Admin) with `npm run local`.
 
@@ -711,7 +711,7 @@ like this picture
 ## 3.5 Setting HTTPS for Spoke
 
 
-Copy the following [files] (#now-we-have-keypem-and-certpem-files) to the `Spoke/certs` folder.
+Copy the following [files](#now-we-have-keypem-and-certpem-files) to the `Spoke/certs` folder.
 
 
 Spoke execution with `yarn start`.
@@ -734,7 +734,7 @@ BASE_ASSETS_PATH = Run spokes on localhost:9090 by default.
 
 ## 3.6 Setting https for Dialog
 
-Copy the following [files] (#now-we-have-keypem-and-certpem-files) to the `dialog/certs` folder.
+Copy the following [files](#now-we-have-keypem-and-certpem-files) to the `dialog/certs` folder.
 
 Rename `cert.crt` to `fullchain.pem`.
 
@@ -800,7 +800,7 @@ npm run local
 
 ## 4.5 Run postgREST server
 
-More information on this can be found [here] (https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally).
+More information on this can be found [here](https://github.com/mozilla/hubs-ops/wiki/Running-PostgREST-locally).
 
 Download postREST
 
