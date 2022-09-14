@@ -551,7 +551,79 @@ npm install
 
 Likewise, never type npm audit . It is unnecessary and may require reinstallation.
 
-<br>
+## 1.6 API Server (Larchiveum API Server)
+### 1.6.1 Install MySQL
+
+install mysql server
+```bash
+sudo apt install mysql-server
+```
+start mysql service
+```bash
+sudo service mysql start
+```
+login to mysql by administrator
+```bash
+sudo mysql -u root -p
+```
+create mysql user
+```bash
+mysql> CREATE USER 'larchiveum' IDENTIFIED BY 'larchiveum';
+```
+grant privileges
+```bash
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'larchiveum'@'localhost';
+```
+quit mysql
+```bash
+mysql> \q
+```
+login to mysql by user larchiveum 
+```bash
+sudo mysql -u larchiveum -p
+```
+create database
+```bash
+mysql> CREATE DATABASE larchiveum;
+```
+quit mysql
+```bash
+mysql> \q
+```
+
+### 1.6.2 Clone and project Larchiveum API Nodejs
+clone project (Your git account must has permision to access this repository)
+```bash
+git clone https://github.com/jbshin-gemiso/mozilla-hubs-installation-detailed.git
+```
+
+* Nodejs with npm is already installed
+
+install dependencies
+```bash
+npm install 
+npm install -g pm2 
+```
+genarate API document
+```bash
+npm run genAPIDoc 
+```
+
+### 1.6.3 Import database
+go to setup folder
+```bash
+cd larchiveum_api_nodejs/setup/
+```
+import database
+```bash
+sudo mysql -u larchiveum -p larchiveum < database.sql
+```
+check inport was successful or not?
+```bash
+sudo mysql -u larchiveum -p
+mysql> SHOW TABLES;
+```
+![System Overview](/docs_img/1.6.3.check_import_databse.png)
 
 # 2. Setting up HOST
 
@@ -567,6 +639,7 @@ There are two main ways to replace `hubs.local` -> `localhost`.
 1. How to access the folder and replace it with an editor such as Visual Studio Code or Sublime Text.
 
 2. Replace all relevant words in a specific folder with Linux commands.
+
 
 <br>
 
@@ -1002,6 +1075,7 @@ Now, a scene that can be used when creating a room is registered and can be used
 
 <br>
 <br>
+
 
 
 
