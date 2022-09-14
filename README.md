@@ -688,7 +688,7 @@ sudo dpkg-reconfigure ca-certificates
 
 그럼, 먼저 Reticulum 에서 설정합니다.
 
-## 3.2 레티큘럼에 대한 https 설정
+## 3.2 Reticulum HTTPS 설정
 
 `config/dev.exs`에서 인증서와 키 파일의 경로를 설정해야 합니다.
 
