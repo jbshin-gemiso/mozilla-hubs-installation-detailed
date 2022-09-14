@@ -894,7 +894,9 @@ Spoke
 
 [https://localhost:4000/spoke](https://localhost:4000/spoke)
 
-#5. Additional Settings
+# 5. Additional Settings
+
+## 5.1 Account Settings
 
 When you log in for the first time, the mail login page will appear. First, enter your email address here.
 
@@ -922,6 +924,8 @@ You are registered with an admin account, and you can now access the admin page.
 
 
 ![img_28](https://user-images.githubusercontent.com/75593521/189047044-9e6794a5-f6ee-4169-9cd8-72ebb79b313a.png)
+
+## 5.1 룸 생성 오류 
 
 When you click the Create Room button to open a room, nothing happens.
 
@@ -960,6 +964,41 @@ export function CreateRoomButton() {
 ```
 
 If there is no problem and the room is opened normally, there is no need to modify it.
+
+## 5.2 Spoke error fix
+<br>
+
+![img_30](https://user-images.githubusercontent.com/75593521/190036522-14cecea3-9306-4540-8d1c-2b0fc1f3c60f.png)
+
+<br>
+
+When you first enter a spoke, you cannot create a project. It is because you are referring to the wrong path.
+
+If the spoke is running, stop it and edit the `.env.defaults` file in the directory where the spoke is installed as follows.
+
+![img_31](https://user-images.githubusercontent.com/75593521/190036635-bead2fbc-fa6c-4691-8d48-712b81e3a06f.png)
+
+<br>
+
+Now, if you run the spoke again and reconnect to the spoke, you can create a project normally.
+
+When creating the project, the following error appears.
+
+![img_32](https://user-images.githubusercontent.com/75593521/190037355-32ca58b6-6f56-4a38-a991-ac6cfe19fe54.png)
+
+<br>
+
+After downloading the object file directly by entering the link address included in the error, save it with a `.glb` extension.
+
+This file was downloaded directly because `Terrain_Crater1.glb` included in the project could not be downloaded.
+
+Now, if you upload the downloaded `glb` file to the project of the spoke and register it in the project, the object will be displayed in the editor normally.
+
+The existing `Terrain_Crater1.glb` (with a warning mark) is deleted from the hierarchy view.
+
+Adjust the position of the object a little and register the scene by clicking the 'Publish Scene' button.
+
+Now, a scene that can be used when creating a room is registered and can be used.
 
 <br>
 <br>
