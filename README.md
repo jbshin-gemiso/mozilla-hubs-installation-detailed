@@ -696,7 +696,7 @@ sudo dpkg-reconfigure ca-certificates
 ![Https mozilla hubs](/docs_img/cert_1.png)
 -->
 
-## 3.3 허브용 HTTPS 설정
+## 3.3 Hubs HTTPS 설정
 
 'hubs/certs' 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
@@ -710,7 +710,7 @@ sudo dpkg-reconfigure ca-certificates
 
 ![ssl hubs](/docs_img/ssl_hubs.png)
 
-## 3.4 허브 관리자용 HTTPS 설정
+## 3.4 Hubs Admin HTTPS 설정
 
 `hubs/admin/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
@@ -724,7 +724,7 @@ sudo dpkg-reconfigure ca-certificates
 
 ![ssl hubs admin](/docs_img/ssl_hubs_admin.png)
 
-## 3.5 스포크용 HTTPS 설정
+## 3.5 Spoke HTTPS 설정
 
 
 `spoke/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
@@ -748,7 +748,7 @@ cross-env NODE_ENV=development ROUTER_BASE_PATH=/spoke BASE_ASSETS_PATH=https://
 
 BASE_ASSETS_PATH = 기본적으로 localhost:9090에서 스포크를 실행합니다.
 
-## 3.6 Dialog에 대한 https 설정
+## 3.6 Dialog HTTPS 설정
 
 `dialog/certs` 폴더에 다음 [파일](#now-we-have-keypem-and-certpem-file)들을 복사합니다.
 
