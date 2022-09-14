@@ -9,7 +9,9 @@ Windows 10 Pro(version 21H2) + WSL2 + Ubuntu 20.04.4 LTS  기반에서 작업이
 
 이 문서는 [albirrkarim/mozilla-hubs-installation-detailed](https://github.com/albirrkarim/mozilla-hubs-installation-detailed) 를 기반으로 제작되었습니다.
 
-해당문서의 튜토리얼 영상 [youtube video](https://youtu.be/KH1T9u9DaCo). 
+해당문서의 튜토리얼 영상 [youtube video](https://youtu.be/KH1T9u9DaCo).
+
+튜토리얼 영상은 해당 파트에 대해 잘 이해가 안될때 큰 도움이 됩니다.
 
 단, 튜토리얼 영상은 맥북으로 작성되어 MacOS 기반입니다. 그래서 이 문서와는 조금 차이가 있습니다. 주의하세요.
 
