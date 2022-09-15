@@ -568,7 +568,7 @@ sudo mysql -u root -p
 ```
 create mysql user
 ```bash
-mysql> CREATE USER 'larchiveum' IDENTIFIED BY 'larchiveum';
+mysql> CREATE USER 'larchiveum'@'localhost' IDENTIFIED BY 'larchiveum';
 ```
 grant privileges
 ```bash
