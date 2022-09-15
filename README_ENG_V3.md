@@ -604,6 +604,7 @@ sudo apt install nodejs
 ```
 install dependencies
 ```bash
+cd larchiveum_api_nodejs
 npm install 
 npm install -g pm2 
 ```
