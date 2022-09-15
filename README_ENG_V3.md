@@ -594,11 +594,13 @@ mysql> \q
 ### 1.6.2 Clone and project Larchiveum API Nodejs
 clone project (Your git account must has permision to access this repository)
 ```bash
-git clone https://github.com/jbshin-gemiso/mozilla-hubs-installation-detailed.git
+git clone https://github.com/geminisoft-vn/larchiveum_api_nodejs.git
 ```
-
-* Nodejs with npm is already installed
-
+please follow [this](https://www.shanebart.com/clone-repo-using-token) tutorial if you can not clone repository
+install Nodejs (>=v.14) if Nodejs not installed
+```bash
+sudo apt install nodejs
+```
 install dependencies
 ```bash
 npm install 
