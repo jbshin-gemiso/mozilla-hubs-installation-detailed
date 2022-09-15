@@ -606,7 +606,7 @@ install dependencies
 ```bash
 cd larchiveum_api_nodejs
 npm install 
-npm install -g pm2 
+sudo npm install -g pm2 
 ```
 genarate API document
 ```bash
@@ -614,9 +614,9 @@ npm run genAPIDoc
 ```
 
 ### 1.6.3 Import database
-go to setup folder
+from larchiveum_api_nodejs, go to setup folder
 ```bash
-cd larchiveum_api_nodejs/setup/
+cd setup
 ```
 import database
 ```bash
@@ -625,6 +625,7 @@ sudo mysql -u larchiveum -p larchiveum < database.sql
 check inport was successful or not?
 ```bash
 sudo mysql -u larchiveum -p
+mysql> use larchiveum;
 mysql> SHOW TABLES;
 ```
 ![System Overview](/docs_img/1.6.3.check_import_databse.png)
