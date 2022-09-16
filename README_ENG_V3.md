@@ -967,8 +967,8 @@ ex) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
 -> Confirm and close
 
 ![4.6.1 genarate v2 token step 1](/docs_img/4.6.1_genarate_v2_token_step1.png)
-![4.6.1 genarate v2 token step 2](/docs_img/4.6.1_genarate_v2_token_step1.png)
-![4.6.1 genarate v2 token step 2](/docs_img/4.6.1_genarate_v2_token_step1.png)
+![4.6.1 genarate v2 token step 2](/docs_img/4.6.1_genarate_v2_token_step2.png)
+![4.6.1 genarate v2 token step 2](/docs_img/4.6.1_genarate_v2_token_step3.png)
 
 * get HUBS_API_V1_TOKEN
 
