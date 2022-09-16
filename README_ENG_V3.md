@@ -1017,7 +1017,7 @@ open project in explorer
 ```bash
 cd explorer.exe .
 ```
-find and open /src/utilities/constant.js
+find and open /src/utilities/constants.js
 change config like that
 ![4.7.1 constant.js](/docs_img/4.7.1_constant_js.png)
 
