@@ -486,6 +486,12 @@ cd larchiveum_hubs_reactjs
 npm ci
 ```
 
+npm ci error....fix.....editing....
+
+![img_34](https://user-images.githubusercontent.com/75593521/190611216-e50dbf64-f8d5-4878-bf61-5915b59467dc.png)
+
+
+
 #### caution
 
 When installing hubs through npm ci, sometimes it hangs.
@@ -997,7 +1003,19 @@ explorer.exe .
 
 change HUBS_API_V1_TOKEN and HUBS_API_V2_TOKEN and Save file
 
-### 4.6.2 Run
+### 4.6.2 
+
+
+editing....
+
+
+![img_35](https://user-images.githubusercontent.com/75593521/190611222-d8492904-9955-421a-9e98-3f847308c987.png)
+
+![img_36](https://user-images.githubusercontent.com/75593521/190611234-28ad42cb-4ce6-4442-a79a-a2b0a5a5e5a9.png)
+
+![img_37](https://user-images.githubusercontent.com/75593521/190611242-cfd3f403-e15c-444b-8c4a-d856e4267cd5.png)
+
+### 4.6.3 Run
 go to project folder
 ```bash
 cd larchiveum_api_nodejs
