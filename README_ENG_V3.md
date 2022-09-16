@@ -551,7 +551,7 @@ npm install
 
 Likewise, never type npm audit . It is unnecessary and may require reinstallation.
 
-## 1.6 API Server (Larchiveum API Server)
+## 1.6 API Server (Larchiveum API)
 ### 1.6.1 Install MySQL
 
 install mysql server
@@ -591,7 +591,7 @@ quit mysql
 mysql> \q
 ```
 
-### 1.6.2 Clone and project Larchiveum API Nodejs
+### 1.6.2 Clone project
 clone project (Your git account must has permision to access this repository)
 ```bash
 git clone https://github.com/geminisoft-vn/larchiveum_api_nodejs.git
@@ -954,7 +954,7 @@ It means the path to the directory where the postgrest and `reticulum.conf` file
 ```
 ex) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
 ```
-## 4.6 Config and run API Server
+## 4.6 Config and run Larchiveum API
 ### 4.6.1 Config
 get HUBS_API_V2_TOKEN
 * go to [https://localhost:4000/tokens](https://localhost:4000/tokens) -> Create token -> Genatate -> Confirm and close
@@ -981,7 +981,8 @@ explorer.exe .
 ```
 ![4.6.1 setting config step 1](/docs_img/4.6.1_setting_config_step1.png)
 ![4.6.1 setting config step 2](/docs_img/4.6.1_setting_config_step2.png)
-### 4.6.1 Run
+
+### 4.6.2 Run
 go to project folder
 ```bash
 cd larchiveum_api_nodejs
