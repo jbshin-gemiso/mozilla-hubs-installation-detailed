@@ -1007,7 +1007,29 @@ run project
 npm run pm2Local
 ```
 
+## 4.7 Config and restart Hubs
+### 4.7.1 Config
+go to project larchiveum_hubs_reactjs
+```bash
+cd larchiveum_hubs_reactjs
+```
+open project in explorer
+```bash
+cd explorer.exe .
+```
+find and open /src/ultilitis/constant.js
+change config like that
+![4.7.1 constant.js](/docs_img/4.7.1_constant_js.png)
 
+### 4.7.2 Restart
+go to project larchiveum_hubs_reactjs
+```bash
+cd larchiveum_hubs_reactjs
+```
+restart
+```bash
+npm run local
+```
 
 <br>
 <br>
