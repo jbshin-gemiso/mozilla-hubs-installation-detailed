@@ -995,6 +995,8 @@ explorer.exe .
 ![4.6.1 setting config step 1](/docs_img/4.6.1_setting_config_step1.png)
 ![4.6.1 setting config step 2](/docs_img/4.6.1_setting_config_step2.png)
 
+change HUBS_API_V1_TOKEN and HUBS_API_V2_TOKEN and Save file
+
 ### 4.6.2 Run
 go to project folder
 ```bash
@@ -1004,6 +1006,9 @@ run project
 ```bash
 npm run pm2Local
 ```
+
+
+
 <br>
 <br>
 
