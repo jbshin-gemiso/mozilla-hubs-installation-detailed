@@ -958,7 +958,14 @@ ex) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
 ### 4.6.1 Config
 * get HUBS_API_V2_TOKEN
 
--> go to [https://localhost:4000/tokens](https://localhost:4000/tokens) -> Create token -> Genatate -> Confirm and close
+-> go to [https://localhost:4000/tokens](https://localhost:4000/tokens) 
+
+-> Create token 
+
+-> Genatate 
+
+-> Confirm and close
+
 ![4.6.1 genarate v2 token step 1](/docs_img/4.6.1_genarate_v2_token_step1.png)
 ![4.6.1 genarate v2 token step 2](/docs_img/4.6.1_genarate_v2_token_step1.png)
 ![4.6.1 genarate v2 token step 2](/docs_img/4.6.1_genarate_v2_token_step1.png)
@@ -966,8 +973,11 @@ ex) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
 * get HUBS_API_V1_TOKEN
 
 -> go to [https://localhost:4000/admin/scenes](https://localhost:4000/admin/scenes)
+
 -> open DevTools of browser
+
 -> open tab "Network" and find to "scenes?limit=10..."
+
 ![4.6.1 genarate v1 token](/docs_img/4.6.1_genarate_v1_token.png)
 
 HUBS_API_V1_TOKEN is string NOT INCLUDE "Bearer "
