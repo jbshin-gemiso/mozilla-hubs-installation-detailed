@@ -630,6 +630,8 @@ mysql> SHOW TABLES;
 ```
 ![System Overview](/docs_img/1.6.3.check_import_databse.png)
 
+<br>
+
 # 2. Setting up HOST
 
 We do not use the `hubs.local` domain. We use `localhost`
@@ -952,7 +954,39 @@ It means the path to the directory where the postgrest and `reticulum.conf` file
 ```
 ex) /home/ubuntu/hubs/reticulum/postgrest reticulum.conf
 ```
-
+## 4.6 Config and run API Server
+### 4.6.1 Config
+get HUBS_API_V2_TOKEN
+* go to [https://localhost:4000/tokens](https://localhost:4000/tokens) -> Create token -> Genatate -> Confirm and close
+![4.6.1 genarate v2 token step 1](/docs_img/4.6.1_genarate_v2_token_step1.png)
+![4.6.1 genarate v2 token step 2](/docs_img/4.6.1_genarate_v2_token_step1.png)
+![4.6.1 genarate v2 token step 2](/docs_img/4.6.1_genarate_v2_token_step1.png)
+get HUBS_API_V1_TOKEN
+* go to [https://localhost:4000/admin/scenes](https://localhost:4000/admin/scenes)
+* open DevTools of browser
+* opne tab "Network" and find to "scenes?limit=10..."
+![4.6.1 genarate v1 token](/docs_img/4.6.1_genarate_v1_token.png)
+HUBS_API_V1_TOKEN is string NOT INCLUDE "Bearer "
+setting config
+go to larchiveum_api_nodejs folder
+```bash
+cd larchiveum_api_nodejs
+```
+open file process.json with editor
+```bash
+explorer.exe .
+```
+![4.6.1 setting config step 1](/docs_img/4.6.1_setting_config_step1.png)
+![4.6.1 setting config step 2](/docs_img/4.6.1_setting_config_step2.png)
+### 4.6.1 Run
+go to project folder
+```bash
+cd larchiveum_api_nodejs
+```
+run project
+```bash
+npm run pm2Local
+```
 <br>
 <br>
 
