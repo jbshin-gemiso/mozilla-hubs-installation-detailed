@@ -1005,8 +1005,7 @@ change HUBS_API_V1_TOKEN and HUBS_API_V2_TOKEN and Save file
 
 ### 4.6.2 
 
-
-editing....
+Modify the add_csp.ex file referring to the image below.
 
 
 ![img_35](https://user-images.githubusercontent.com/75593521/190611222-d8492904-9955-421a-9e98-3f847308c987.png)
