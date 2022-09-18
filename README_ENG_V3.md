@@ -486,7 +486,13 @@ cd larchiveum_hubs_reactjs
 npm ci
 ```
 
-npm ci error....fix.....editing....
+#### Error handling
+
+If the following error occurs when using npm ci, clone the repository again.
+
+Then after updating to `hubs-cloud` brunch,
+
+Use `npm install --force` instead of npm-ci.
 
 ![img_34](https://user-images.githubusercontent.com/75593521/190611216-e50dbf64-f8d5-4878-bf61-5915b59467dc.png)
 
