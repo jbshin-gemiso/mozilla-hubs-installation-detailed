@@ -784,6 +784,10 @@ like this picture
 
 ![ssl hubs](/docs_img/ssl_hubs.png)
 
+Also edit `webpack.config.js`
+
+Replace `cert.pem` with `cert.crt`
+
 
 ## 3.4 Setting HTTPS for hubs admin
 
@@ -798,6 +802,10 @@ So add an extra parameter to `package.json`.
 like this picture
 
 ![ssl hubs admin](/docs_img/ssl_hubs_admin.png)
+
+Also edit `webpack.config.js`
+
+Replace `cert.pem` with `cert.crt`
 
 
 ## 3.5 Setting HTTPS for Spoke
