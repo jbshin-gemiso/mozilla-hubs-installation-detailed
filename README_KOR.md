@@ -204,32 +204,32 @@ erlang 설치를 시도하면 높은 확률로 필요로하는 패키지가 없�
 
 필요로 하는 패키지를 설치해주자.
 
-libssl-dev
+* libssl-dev
 ```
 sudo apt-get install libssl-dev
 ```
 
-make
+* make
 ```
 sudo apt install gcc make
 ```
 
-autoconf
+* autoconf
 ```
 sudo apt install autoconf
 ```
 
-automake
+* automake
 ```
 sudo apt install automake
 ```
 
-libncurses5-dev
+* libncurses5-dev
 ```
 sudo apt install libncurses5-dev
 ```
 
-gcc
+* gcc
 ```
 sudo apt install gcc
 ```
